@@ -25,12 +25,14 @@ Route::prefix('admin')->group(function () {
 });
 
 
-Route::prefix('formateur')
-    ->as('formateur.')
+Route::prefix('teacher')
+    ->as('teacher.')
     ->group(function() {
         Route::get('home',  [App\Http\Controllers\Home\TeacherHomeController::class ,'index'])->name('home');
         Route::namespace('Auth\Login')->group(function() {
             Route::get('login', [App\Http\Controllers\Auth\Login\TeacherController::class , 'showLoginForm'])->name('login');
+            Route::get('register', [App\Http\Controllers\Auth\Login\TeacherController::class , 'showRegisterForm'])->name('register');
+            Route::post('register', [App\Http\Controllers\Auth\Login\TeacherController::class , 'register'])->name('register');
             Route::post('login', [App\Http\Controllers\Auth\Login\TeacherController::class ,'login'])->name('login');
             Route::post('logout',  [App\Http\Controllers\Auth\Login\TeacherController::class ,'logout'])->name('logout');
       });
@@ -42,6 +44,8 @@ Route::prefix('formateur')
         Route::get('home',  [App\Http\Controllers\Home\StudentHomeController::class ,'index'])->name('home');
         Route::namespace('Auth\Login')->group(function() {
             Route::get('login', [App\Http\Controllers\Auth\Login\StudentController::class , 'showLoginForm'])->name('login');
+            Route::get('register', [App\Http\Controllers\Auth\Login\StudentController::class , 'showRegisterForm'])->name('register');
+            Route::post('register', [App\Http\Controllers\Auth\Login\StudentController::class , 'register'])->name('register');
             Route::post('login', [App\Http\Controllers\Auth\Login\StudentController::class ,'login'])->name('login');
             Route::post('logout',  [App\Http\Controllers\Auth\Login\StudentController::class ,'logout'])->name('logout');
       });

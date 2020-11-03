@@ -13,7 +13,7 @@
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h3">Create an account</h1>
                     </div>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('teacher.register') }}">
                         @csrf
                         <!-- Form -->
                         <div class="form-group mb-4">

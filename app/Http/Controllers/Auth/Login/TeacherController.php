@@ -16,9 +16,13 @@ class TeacherController extends DefaultLoginController
     {
         return view('auth.teacher.login');
     }
+    public function showRegisterForm()
+    {
+        return view('auth.teacher.register');
+    }
     public function username()
     {
-        return 'teacher_id';
+        return 'email';
     }
     protected function guard()
     {

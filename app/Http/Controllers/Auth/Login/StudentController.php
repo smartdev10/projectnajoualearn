@@ -16,9 +16,15 @@ class StudentController extends DefaultLoginController
     {
         return view('auth.student.login');
     }
+
+    public function showRegisterForm()
+    {
+        return view('auth.student.register');
+    }
+
     public function username()
     {
-        return 'student_id';
+        return 'email';
     }
     protected function guard()
     {
