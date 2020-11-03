@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cours extends Model
 {
     use HasFactory;
+
+
+    public function formation()
+    {
+        return $this->belongsTo('App\Models\Formation');
+    }
 }

@@ -15,7 +15,6 @@ class CreateFormateurMessagesTable extends Migration
     {
         Schema::create('formateur_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('formateur_id')->nullable()->constrained('formateurs');
             $table->foreignId('room_id')->constrained('formateur_rooms');
             $table->text('message');
             $table->boolean('is_seen')->default(false);

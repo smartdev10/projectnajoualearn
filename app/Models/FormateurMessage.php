@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FormateurMessage extends Model
 {
     use HasFactory;
+
+    public function room()
+    {
+        return $this->belongsTo('App\Models\FormateurRoom');
+    }
 }

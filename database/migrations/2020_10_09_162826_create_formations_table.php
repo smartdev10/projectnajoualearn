@@ -13,7 +13,7 @@ class CreateFomationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fomations', function (Blueprint $table) {
+        Schema::create('formations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();

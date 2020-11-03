@@ -37,4 +37,20 @@ class Etudiant extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function rooms()
+    {
+        return $this->hasMany('App\Models\Room');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Ticket');
+    }
+    
+    public function formation()
+    {
+        return $this->belongsTo('App\Models\Fomation');
+    }
+
 }

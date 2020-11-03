@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FormateurTicket extends Model
 {
     use HasFactory;
+
+    public function formateur()
+    {
+        return $this->belongsTo('App\Models\Formateur');
+    }
 }

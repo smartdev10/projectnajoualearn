@@ -15,7 +15,6 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->nullable()->constrained('students');
             $table->foreignId('room_id')->constrained('rooms');
             $table->text('message');
             $table->boolean('is_seen')->default(false);
