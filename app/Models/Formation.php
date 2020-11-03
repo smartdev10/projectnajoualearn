@@ -10,9 +10,9 @@ class Formation extends Model
     use HasFactory;
 
 
-    public function cours()
+    public function modules()
     {
-        return $this->hasMany('App\Models\Cours');
+        return $this->hasMany('App\Models\Module');
     }
 
 }

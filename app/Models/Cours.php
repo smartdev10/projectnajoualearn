@@ -12,6 +12,6 @@ class Cours extends Model
 
     public function formation()
     {
-        return $this->belongsTo('App\Models\Formation');
+        return $this->belongsTo('App\Models\Module');
     }
 }

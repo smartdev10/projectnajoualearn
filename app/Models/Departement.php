@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Departement extends Model
 {
     use HasFactory;
+
+    public function formateurs()
+    {
+        return $this->hasMany('App\Models\Formateur');
+    }
 }
