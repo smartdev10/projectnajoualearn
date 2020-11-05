@@ -11,6 +11,11 @@ class DepartementController extends Controller
      return $request;
     }
 
-    
+    public function departements()
+    {
+        return  Departement::all();
+        
+    }
+
 
 }
