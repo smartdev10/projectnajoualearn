@@ -6,8 +6,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD : secret
       PGADMIN_DEFAULT_EMAIL : abdeljalil.aitetaleb@gmail.com
     ports:
-      - "80:80"
-  db:
+      - "8080:80"
+  db_esna:
     image: postgres:latest
     environment:
       POSTGRES_PASSWORD: secret

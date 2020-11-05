@@ -25,7 +25,7 @@ const Departements = () => {
       return (
           <tr className="mb-0">
             <td className="">
-            No data Available
+              No data Available
             </td>    
           </tr>
       ) 
