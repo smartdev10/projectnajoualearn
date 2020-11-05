@@ -7,5 +7,10 @@ use App\Models\Departement;
 
 class DepartementController extends Controller
 {
-    //
+    public function  creat_departement(Request $request){
+     return $request;
+    }
+
+    
+
 }
