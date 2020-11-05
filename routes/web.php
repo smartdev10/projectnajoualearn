@@ -67,3 +67,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api/departements'], function 
 Route::prefix('api/department')->group(function () {
     Route::post('create', [App\Http\Controllers\DepartementController::class, 'creat_departement']);
 });
+Route::prefix('api/formation')->group(function () {
+    Route::post('create', [App\Http\Controllers\FormatiomController::class, 'creat_formation']);
+});
