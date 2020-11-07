@@ -63,10 +63,27 @@ Route::group(['middleware' => 'auth', 'prefix' => 'auth'], function ($router) {
 Route::group(['middleware' => 'auth', 'prefix' => 'api/departements'], function ($router) {
     Route::post('create', [App\Http\Controllers\AuthController::class, 'create']);
 });
-
+  
+// DEPARTEMENT FUNCTIONS  Roots
 Route::prefix('api/department')->group(function () {
     Route::post('create', [App\Http\Controllers\DepartementController::class, 'creat_departement']);
 });
+Route::prefix('api/department')->group(function () {
+    Route::post('store', [App\Http\Controllers\DepartementController::class, 'creat_departement']);
+});
+
+Route::prefix('api/department')->group(function () {
+    Route::post('show', [App\Http\Controllers\DepartementController::class, 'show']);
+});
+
+Route::prefix('api/department')->group(function () {
+    Route::post('edit', [App\Http\Controllers\DepartementController::class, 'edit']);
+});
+
+Route::prefix('api/department')->group(function () {
+    Route::post('destroy', [App\Http\Controllers\DepartementController::class, 'destroy']);
+});
+// Formation FUNCTIONS  Roots
 Route::prefix('api/formation')->group(function () {
     Route::post('create', [App\Http\Controllers\FormatiomController::class, 'creat_formation']);
 });
