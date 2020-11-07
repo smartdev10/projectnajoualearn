@@ -69663,7 +69663,7 @@ var loadDepartements = function loadDepartements(departements) {
 };
 var CreateDepartement = function CreateDepartement(params) {
   return function (dispatch) {
-    return Object(_api__WEBPACK_IMPORTED_MODULE_0__["dataProvider"])("CREATE", "departements/create", params);
+    return Object(_api__WEBPACK_IMPORTED_MODULE_0__["dataProvider"])("CREATE", "department/create", params);
   };
 };
 var UpdateDepartement = function UpdateDepartement(params) {
@@ -70276,7 +70276,7 @@ var students = function students() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\abdeljalil\project_laravel\udemy.dev\najoualearn\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/abdel/project_ensa/projectnajoualearn/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

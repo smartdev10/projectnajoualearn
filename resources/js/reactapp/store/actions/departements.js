@@ -9,7 +9,7 @@ export const loadDepartements = departements => ({
 
 export const CreateDepartement = (params) => {
   return dispatch => {
-    return dataProvider("CREATE", "departements/create", params)
+    return dataProvider("CREATE", "department/create", params)
   };
 };
 
