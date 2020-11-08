@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 import { CreateDepartement , fetchDepartement } from "../../../store/actions/departements";
 
-const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , className }) => {
+const AddDepartement = ({ setMessage , toggleNotifyModal , toggleAddModal , open  , currentPage , className }) => {
    
   const [name, setDepartementName] = useState("")
   const dispatch = useDispatch()
@@ -31,6 +31,7 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
       })
       .catch((err)=> {
         setMessage("Data Saved")
+        toggleNotifyModal(true)
       })
   }
 

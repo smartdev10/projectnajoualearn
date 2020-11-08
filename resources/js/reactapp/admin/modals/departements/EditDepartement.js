@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React , { useState , useEffect } from "react";
 // reactstrap components
 import {
   Button,
@@ -11,15 +11,15 @@ import {
 } from "reactstrap";
 
 import { useDispatch } from "react-redux";
-import { CreateDepartement , fetchDepartement } from "../../../store/actions/departements";
+import { UpdateDepartement , fetchDepartement } from "../../../store/actions/departements";
 
-const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , className }) => {
+const EditDepartement = ({ setMessage , toggleEditModal , open  , currentPage , className , depart }) => {
    
-  const [name, setDepartementName] = useState("")
   const dispatch = useDispatch()
+  const [name, setName] = useState('')
 
   const saveDepartement = () => {
-      dispatch(CreateDepartement({data:{name}}))
+      dispatch(UpdateDepartement({data:{name}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchDepartement({
@@ -27,12 +27,17 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
         }))
-        toggleAddModal(false)
+        toggleEditModal(false)
       })
       .catch((err)=> {
         setMessage("Data Saved")
       })
   }
+  useEffect(() => {
+    if(Object.keys(depart).length !== 0){
+      setName(depart.name)
+    }
+  }, [depart])
 
   return (
     <>
@@ -40,18 +45,18 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
         className={className}
         isOpen={open}
         fade={true}
-        toggle={() => toggleAddModal(false)}>
+        toggle={() => toggleEditModal(false)}>
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Add Departement
+            Edit Departement
           </h4>
           <button
             aria-label="Close"
             className="close"
             data-dismiss="modal"
             type="button"
-            onClick={() => toggleAddModal(false)}
+            onClick={() => toggleEditModal(false)}
           >
             <span aria-hidden={true}>×</span>
           </button>
@@ -61,7 +66,7 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
             <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>Departement Name :</strong> </Label>
-                <Input onChange={(e)=>  setDepartementName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
+                <Input value={name} onChange={(e)=>  setName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>
@@ -69,7 +74,7 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
         <div className="modal-footer">
           <Button  onClick={(e)=> saveDepartement() } color="primary" type="button">
            <i className="mr-2 fas fa-save"></i>
-            Save
+            Edit
           </Button>
         </div>
       </Modal>
@@ -78,4 +83,4 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
 }
 
 
-export default AddDepartement
+export default EditDepartement

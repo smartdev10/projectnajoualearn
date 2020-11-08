@@ -16,11 +16,8 @@ const range = (from, to, step = 1) => {
   return range;
 };
 
-function Paginations({ onPageChanged , totalRecords , pageLimit = 10 , pageNeighbours  = 0 ,currentPage = 1 }){
+function Paginations({ onPageChanged , totalRecords , pageLimit = 10 , pageNeighbours  = 0 , currentPage = 1 }){
   
-
-  // const [currentPage , setCurrentPage] = useState(1)
-
   const pageN =
     typeof pageNeighbours === "number"
       ? Math.max(0, Math.min(pageNeighbours, 2))
@@ -28,16 +25,6 @@ function Paginations({ onPageChanged , totalRecords , pageLimit = 10 , pageNeigh
 
   const totalPages = Math.ceil(totalRecords / pageLimit);
  
-  // const gotoPage = useCallback( (page) => {
-  //   const currentPage = Math.max(0, Math.min(page, totalPages));
-  //   setCurrentPage(currentPage)
-  // }, 
-  // [totalPages]
-  // )
-
-  // useEffect(() => {
-  //   gotoPage(1)      
-  // },[gotoPage])
 
   const handleClick = (page, evt) => {
     evt.preventDefault();
@@ -110,16 +97,15 @@ function Paginations({ onPageChanged , totalRecords , pageLimit = 10 , pageNeigh
   const pages = fetchPageNumbers();
   const headerClass = [
     "text-dark py-2 pr-4 m-0",
-    currentPage ? "border-gray border-right" : ""
+    currentPage ? "border-gray" : ""
   ]
     .join(" ")
     .trim();
   return (
       <nav aria-label="...">
       <Pagination
-        className="pagination justify-content-end mb-0"
-        listClassName="justify-content-end mb-0"
-      >
+        className="pagination justify-content-start mb-0"
+        listClassName="justify-content-start mb-0">
         {pages.map((page, index) => {
               if (page === LEFT_PAGE)
                 return (

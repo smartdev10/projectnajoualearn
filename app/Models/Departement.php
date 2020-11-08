@@ -9,6 +9,10 @@ class Departement extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function formateurs()
     {
         return $this->hasMany('App\Models\Formateur');

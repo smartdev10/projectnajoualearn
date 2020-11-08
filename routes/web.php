@@ -65,25 +65,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api/departements'], function 
 });
   
 // DEPARTEMENT FUNCTIONS  Roots
-Route::prefix('api/department')->group(function () {
+Route::prefix('api/departements')->group(function () {
+    Route::get('', [App\Http\Controllers\DepartementController::class, 'departements']);
+    Route::get('show/{id}', [App\Http\Controllers\DepartementController::class, 'show']);
     Route::post('create', [App\Http\Controllers\DepartementController::class, 'creat_departement']);
-});
-Route::prefix('api/department')->group(function () {
-    Route::post('store', [App\Http\Controllers\DepartementController::class, 'creat_departement']);
-});
-
-Route::prefix('api/department')->group(function () {
-    Route::post('show', [App\Http\Controllers\DepartementController::class, 'show']);
-});
-
-Route::prefix('api/department')->group(function () {
     Route::post('edit', [App\Http\Controllers\DepartementController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\DepartementController::class, 'destroy']);
 });
 
-Route::prefix('api/department')->group(function () {
-    Route::post('destroy', [App\Http\Controllers\DepartementController::class, 'destroy']);
-});
 // Formation FUNCTIONS  Roots
-Route::prefix('api/formation')->group(function () {
+Route::prefix('api/formations')->group(function () {
     Route::post('create', [App\Http\Controllers\FormatiomController::class, 'creat_formation']);
 });

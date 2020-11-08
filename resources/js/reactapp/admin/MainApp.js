@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouteMatch } from "react-router-dom";
 import App from "./routes/index";
 import Nav from "./partials/_nav";
 import Footer from "./partials/_footer";
