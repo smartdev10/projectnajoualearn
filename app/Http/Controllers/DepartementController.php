@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 class DepartementController extends Controller
 {
 
-
     public function  creat_departement(Request $request){
 
          $validator = Validator::make($request->all(), [

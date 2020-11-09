@@ -75,5 +75,9 @@ Route::prefix('api/departements')->group(function () {
 
 // Formation FUNCTIONS  Roots
 Route::prefix('api/formations')->group(function () {
-    Route::post('create', [App\Http\Controllers\FormatiomController::class, 'creat_formation']);
+    Route::get('', [App\Http\Controllers\DepartementController::class, 'formations']);
+    Route::get('show/{id}', [App\Http\Controllers\DepartementController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\DepartementController::class, 'creat_formation']);
+    Route::post('edit', [App\Http\Controllers\DepartementController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\DepartementController::class, 'destroy']);
 });
