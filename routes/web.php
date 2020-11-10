@@ -81,3 +81,18 @@ Route::prefix('api/formations')->group(function () {
     Route::post('edit', [App\Http\Controllers\DepartementController::class, 'edit']);
     Route::delete('delete/{id}', [App\Http\Controllers\DepartementController::class, 'destroy']);
 });
+
+// module FUNCTIONS  Roots
+Route::prefix('api/modules')->group(function () {
+    Route::get('', [App\Http\Controllers\ModuleController::class, 'modules']);
+    Route::get('show/{id}', [App\Http\Controllers\DepartementController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\DepartementController::class, 'creat_module']);
+    Route::post('edit', [App\Http\Controllers\DepartementController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\DepartementController::class, 'destroy']);
+});
+
+
+
+
+
+
