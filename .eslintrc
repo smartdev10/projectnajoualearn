@@ -1,0 +1,20 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "parser": "babel-eslint",
+    "rules": {
+        "react/prop-types": 0,
+        "react/no-unescaped-entities": 0
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6":true
+    }
+}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Formateur;
 use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +22,7 @@ class FormatiomController extends Controller
            'name' => $request->get('name'),
         ]);
         $formation->save(); 
-        return response()->json(['messages'=>'created']);
+        return response()->json(['message'=>'created']);
    }
 
     // Function return Object
@@ -49,7 +48,7 @@ class FormatiomController extends Controller
    public function destroy($id){
        $formation = Formation::find($id);
        $formation->delete();
-       return response()->json(['messages'=>'deleted']);
+       return response()->json(['message'=>'deleted']);
    }
 
 

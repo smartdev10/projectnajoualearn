@@ -43,19 +43,16 @@ const Departements = () => {
       const offset = (currentPage - 1) * 10;
       setMessage("Deleting ...")
       dispatch(DeleteDepartement({id})).then(()=>{
-        setStatus("success")
         setMessage("Deleted")
         dispatch(fetchDepartement({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
         })).then(()=>{
-          delay(1000).then(()=>{
-            setConfirmModal(false)
-            setMessage("Are you Sure ?!")
-          })
+          setConfirmModal(false)
+          setMessage("Are you Sure ?!")
         })
-      }).catch((err)=>{
+      }).catch(()=>{
         setMessage("Error While Deleting!")
       })
     }

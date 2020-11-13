@@ -21,7 +21,7 @@ class DepartementController extends Controller
             'name' => $request->get('name'),
          ]);
          $departement->save(); 
-         return response()->json(['messages'=>'created']);
+         return response()->json(['message'=>'created']);
     }
 
     public function departements(){
@@ -41,10 +41,13 @@ class DepartementController extends Controller
     }
 
     // FUNCTION DELET 
-    public function destroy($id){
-        $departement = Departement::find($id);
-        $departement->delete();
-        return response()->json(['messages'=>'deleted']);
+    public function destroy(Request $request){
+
+        $filter = $request->query('filter');
+      //   $departement = Departement::find($id);
+      //   $departement->delete();
+        print($filter);
+        return $filter;
     }
 
 }

@@ -14,7 +14,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal.
 
 */
-
+/* eslint-disable */
 "use strict";
 const SmoothScroll = require('smooth-scroll');
 const d = document;

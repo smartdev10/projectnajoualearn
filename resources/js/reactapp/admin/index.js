@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import App from './App'
 import { configureStore } from "../store"
 import { setCurrentUser } from "../store/actions/user_auth";
-
+import axios from 'axios'
 const store = configureStore();
 
 
@@ -17,7 +17,7 @@ axios.post('/auth/me', {
    }
 }).then(({data}) => {
    store.dispatch(setCurrentUser(data.user))
-}).catch(err =>{
+}).catch(() =>{
   store.dispatch(setCurrentUser({}))
 })
 

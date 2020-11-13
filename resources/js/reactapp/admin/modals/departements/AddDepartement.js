@@ -29,7 +29,7 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
         }))
         toggleAddModal(false)
       })
-      .catch((err)=> {
+      .catch(()=> {
         setMessage("Data Saved")
       })
   }
@@ -67,7 +67,7 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
           </ListGroup>
         </div>
         <div className="modal-footer">
-          <Button  onClick={(e)=> saveDepartement() } color="primary" type="button">
+          <Button  onClick={()=> saveDepartement() } color="primary" type="button">
            <i className="mr-2 fas fa-save"></i>
             Save
           </Button>

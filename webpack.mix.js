@@ -1,5 +1,18 @@
 const mix = require('laravel-mix');
 
+mix.webpackConfig({
+   module: {
+     rules: [
+       {
+         enforce: 'pre',
+         exclude: /node_modules/,
+         loader: 'eslint-loader',
+         test: /\.(js)?$/ 
+       },
+     ]
+   }
+ })
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

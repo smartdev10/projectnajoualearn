@@ -12,8 +12,12 @@
     "devDependencies": {
         "@babel/preset-react": "^7.12.5",
         "axios": "^0.19",
+        "babel-eslint": "^10.1.0",
         "bootstrap": "^5.0.0-alpha1",
         "cross-env": "^7.0",
+        "eslint": "^7.13.0",
+        "eslint-loader": "^4.0.2",
+        "eslint-plugin-react": "^7.21.5",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.9",
         "lodash": "^4.17.20",

@@ -1,5 +1,21 @@
 import { stringify } from 'query-string';
+import axios from 'axios';
 
+
+
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+window.axios = axios
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common = {
+    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    'X-Requested-With': 'XMLHttpRequest'
+};
 
 let  transport = axios.create({
     withCredentials: true
@@ -75,13 +91,14 @@ export function dataProvider(type , path , params) {
         url = `${path}/${params.id}`;
         method = 'DELETE';
         break;
-    case "DELETE_MANY":
+    case "DELETE_MANY":{
         const query = {
             filter: JSON.stringify({ ...params }),
         };
         url = `${path}?${stringify(query)}`;
         method = 'DELETE';
         break;
+    }
     case "GET_MANY_REFERENCE": {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;

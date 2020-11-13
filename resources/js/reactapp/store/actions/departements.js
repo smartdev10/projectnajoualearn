@@ -8,20 +8,20 @@ export const loadDepartements = departements => ({
 });
 
 export const CreateDepartement = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "departements/create", params)
   };
 };
 
 
 export const UpdateDepartement = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("UPDATE", "departements/update", params)
   };
 };
 
 export const DeleteDepartement = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("DELETE_MANY", "departements/delete", params)
   };
 };
@@ -42,7 +42,7 @@ export const fetchDepartement = (params = {
 
 
 export const fetchOneDepartement = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "departements", params)
   };
 };
