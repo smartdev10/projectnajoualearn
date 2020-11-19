@@ -9,14 +9,14 @@ export const loadStudents = students => ({
 });
 
 export const CreateStudent = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "students", params)
   };
 };
 
 
 export const DeleteStudent = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("DELETE_MANY", "students", params)
   };
 };
@@ -37,7 +37,7 @@ export const fetchStudents = (params = {
 
 
 export const fetchOneStudent = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "students", params)
   };
 };

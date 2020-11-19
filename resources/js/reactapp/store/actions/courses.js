@@ -7,20 +7,20 @@ export const loadCourses = courses => ({
 });
 
 export const CreateCourse = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "courses/create", params)
   };
 };
 
 export const UpdateCourse = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("UPDATE", "courses/update", params)
   };
 };
 
 export const DeleteCourse = (params) => {
-  return dispatch => {
-    return dataProvider("DELETE_MANY", "courses/delete", params)
+  return () => {
+    return dataProvider("DELETE", "courses/delete", params)
   };
 };
 

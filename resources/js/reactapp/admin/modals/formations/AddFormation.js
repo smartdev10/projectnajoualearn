@@ -1,4 +1,5 @@
-import React , { useState } from "react";
+import React , { useEffect, useState } from "react";
+import { useDispatch , useSelector } from "react-redux";
 // reactstrap components
 import {
   Button,
@@ -10,20 +11,27 @@ import {
   Label,
 } from "reactstrap";
 
-import { useDispatch } from "react-redux";
-import { CreateDepartement , fetchDepartement } from "../../../store/actions/departements";
+import { CreateFormation , fetchFormations } from "../../../store/actions/formations";
+import { fetchModules } from "../../../store/actions/modules";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
-const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , className }) => {
+const AddFormation = ({ setMessage , toggleAddModal , open  , currentPage , className }) => {
    
-  const [name, setDepartementName] = useState("")
+  const [name, setFormationName] = useState("")
+  const [module_id, setModuleId] = useState(0)
+  const modules = useSelector(state => state.modules)
   const dispatch = useDispatch()
 
+  useEffect(()=>{
+    dispatch(fetchModules())
+  },[])
+
   const saveDepartement = () => {
-      dispatch(CreateDepartement({data:{name}}))
+    if(module_id && name){
+      dispatch(CreateFormation({data:{name, module_id}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
-        dispatch(fetchDepartement({
+        dispatch(fetchFormations({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
@@ -35,6 +43,9 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
         setMessage("Data Saved")
         notyf.error('Error while Adding');
       })
+    }else{
+      notyf.error('Please fill All inforamtions');
+    }
   }
 
   return (
@@ -47,7 +58,7 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Add Departement
+            Add Formation
           </h4>
           <button
             aria-label="Close"
@@ -63,9 +74,20 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
         <ListGroup>
             <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>Departement Name :</strong> </Label>
-                <Input onChange={(e)=>  setDepartementName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
+                <Label for="name"><strong>Formation Name :</strong> </Label>
+                <Input onChange={(e)=>  setFormationName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
               </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+             <FormGroup>
+              <Label for="exampleSelect">Select Module</Label>
+              <Input onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
+                <option value={""} key='er'></option>
+                {
+                 modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
+                }
+              </Input>
+            </FormGroup>
              </ListGroupItem>
           </ListGroup>
         </div>
@@ -81,4 +103,4 @@ const AddDepartement = ({ setMessage , toggleAddModal , open  , currentPage , cl
 }
 
 
-export default AddDepartement
+export default AddFormation

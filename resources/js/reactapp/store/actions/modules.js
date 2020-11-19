@@ -8,21 +8,21 @@ export const loadModules = modules => ({
 });
 
 export const CreateModule = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "modules/create", params)
   };
 };
 
 
 export const UpdateModule = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("UPDATE", "modules/update", params)
   };
 };
 
 export const DeleteModule = (params) => {
-  return dispatch => {
-    return dataProvider("DELETE_MANY", "modules/delete", params)
+  return () => {
+    return dataProvider("DELETE", "modules/delete", params)
   };
 };
 
@@ -42,7 +42,7 @@ export const fetchModules = (params = {
 
 
 export const fetchOneModule = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "modules", params)
   };
 };

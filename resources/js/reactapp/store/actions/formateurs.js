@@ -17,7 +17,7 @@ export const CreateFormateur = (params) => {
 
 export const DeleteFormateur = (params) => {
   return dispatch => {
-    return dataProvider("DELETE_MANY", "formateurs", params)
+    return dataProvider("DELETE", "formateurs", params)
   };
 };
 

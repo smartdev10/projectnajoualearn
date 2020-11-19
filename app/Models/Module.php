@@ -9,6 +9,12 @@ class Module extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
+
     public function formation()
     {
         return $this->belongsTo('App\Models\Formation');

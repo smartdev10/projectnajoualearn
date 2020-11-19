@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Switch, useLocation} from "react-router-dom";
+import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Students from "./Students/index";
 import Departements from "./Departements/index";
 import Formations from "./Formations/index";
@@ -10,7 +10,6 @@ import Annonces from "./Annonces/index";
 const App = ({match}) => {
 
     const location = useLocation()
-
     return (
         <div>
          <div className="py-4">
@@ -23,7 +22,7 @@ const App = ({match}) => {
             </nav>
             <div className="d-flex justify-content-between w-100 flex-wrap">
                 <div className="mb-3 mb-lg-0">
-                    <h1 className="h4">Departements List</h1>
+                    <h1 className="h4">{location.pathname.split('/').pop()} list</h1>
                 </div>
             </div>
         </div>
@@ -34,6 +33,7 @@ const App = ({match}) => {
             <Route path={`${match.url}/courses`} component={Courses}/>
             <Route path={`${match.url}/annonces`} component={Annonces}/>
             <Route path={`${match.url}/students`} component={Students}/>
+            <Redirect to={`${match.url}/departements`} />
         </Switch>
     </div>
     )

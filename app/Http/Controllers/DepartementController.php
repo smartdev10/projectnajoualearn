@@ -35,19 +35,21 @@ class DepartementController extends Controller
     }
 
     // fUNCTION UPDATE 
-    public function edit($id){
+    public function edit(Request $request , $id){
        $departement = Departement::find($id);
-       return $departement;
+       $departement->name = $request->name;
+       $departement->save();
+       return response()->json(['message'=>'saved']);
+
     }
 
     // FUNCTION DELET 
-    public function destroy(Request $request){
+    public function destroy($id){
 
-        $filter = $request->query('filter');
-      //   $departement = Departement::find($id);
-      //   $departement->delete();
-        print($filter);
-        return $filter;
+        $departement = Departement::find($id);
+        $departement->delete();
+        return response()->json(['message'=>'created']);
+     
     }
 
 }

@@ -9,13 +9,13 @@ export const loadAnnonces = annonces => ({
 });
 
 export const CreateAnnonces = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "annonces/create", params)
   };
 };
 
 export const DeleteAnnonces = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("DELETE_MANY", "annonces/delete", params)
   };
 };
@@ -36,7 +36,7 @@ export const fetchAnnonces = (params = {
 
 
 export const fetchOneSeed = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "annonces", params)
   };
 };

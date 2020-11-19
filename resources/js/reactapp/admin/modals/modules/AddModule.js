@@ -11,27 +11,29 @@ import {
 } from "reactstrap";
 
 import { useDispatch } from "react-redux";
-import { CreateDepartement , fetchDepartement } from "../../../store/actions/departements";
-
-const AddDepartement = ({ setMessage , toggleNotifyModal , toggleAddModal , open  , currentPage , className }) => {
+import { CreateModule , fetchModules } from "../../../store/actions/modules";
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
+const AddModule = ({  toggleAddModal , open  , currentPage , className }) => {
    
-  const [name, setDepartementName] = useState("")
+  const [name, setModuleName] = useState("")
+  const [description, setModuleDescription] = useState("")
   const dispatch = useDispatch()
 
   const saveDepartement = () => {
-      dispatch(CreateDepartement({data:{name}}))
+      dispatch(CreateModule({data:{name, description}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
-        dispatch(fetchDepartement({
+        dispatch(fetchModules({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
         }))
         toggleAddModal(false)
+        notyf.success('Your record have been successfully saved!');
       })
-      .catch((err)=> {
-        setMessage("Data Saved")
-        toggleNotifyModal(true)
+      .catch(()=> {
+        notyf.error('Error while Adding');
       })
   }
 
@@ -45,7 +47,7 @@ const AddDepartement = ({ setMessage , toggleNotifyModal , toggleAddModal , open
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Add Departement
+            Add Module
           </h4>
           <button
             aria-label="Close"
@@ -61,14 +63,20 @@ const AddDepartement = ({ setMessage , toggleNotifyModal , toggleAddModal , open
         <ListGroup>
             <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>Departement Name :</strong> </Label>
-                <Input onChange={(e)=>  setDepartementName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
+                <Label for="name"><strong>Module Name :</strong> </Label>
+                <Input onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+              </FormGroup>
+             </ListGroupItem>
+             <ListGroupItem>
+             <FormGroup>
+                <Label for="Description">Description</Label>
+                <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>
         </div>
         <div className="modal-footer">
-          <Button  onClick={(e)=> saveDepartement() } color="primary" type="button">
+          <Button  onClick={()=> saveDepartement() } color="primary" type="button">
            <i className="mr-2 fas fa-save"></i>
             Save
           </Button>
@@ -79,4 +87,4 @@ const AddDepartement = ({ setMessage , toggleNotifyModal , toggleAddModal , open
 }
 
 
-export default AddDepartement
+export default AddModule

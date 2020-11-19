@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class Module_Controller extends Controller
+class ModuleController extends Controller
 {
-    public function  creat_model(Request $request)
+    public function  create(Request $request)
     {
 
-        $validator = Module::make($request->all(), [
+        $validator = Validator::make($request->all(), [
            'name' => 'required',
+           'description' => 'required'
         ]);
         if ($validator->fails()) {
            return response()->json(['error'=>$validator->errors()], 404);
         }
         $model= Module::create([
            'name' => $request->get('name'),
+           'description' => $request->get('description'),
         ]);
         $model->save(); 
         return response()->json(['message'=>'created']);
@@ -37,9 +40,12 @@ class Module_Controller extends Controller
    }
 
    // MODEL UPDATE
-   public function edit($id){
-      $model = Module::find($id);
-      return $model;
+   public function edit(Request $request  , $id){
+      $formation = Module::find($id);
+      $formation->name = $request->name;
+      $formation->description = $request->description;
+      $formation->save();
+      return response()->json(['message'=>'saved']);
    }
 
    // MODEL DELET 

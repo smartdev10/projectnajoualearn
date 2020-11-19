@@ -7,7 +7,7 @@ import { configureStore } from "../store"
 import { setCurrentUser } from "../store/actions/user_auth";
 import axios from 'axios'
 const store = configureStore();
-
+import 'notyf/notyf.min.css';
 
 const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 axios.post('/auth/me', {

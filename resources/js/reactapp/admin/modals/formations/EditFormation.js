@@ -1,4 +1,4 @@
-import React , { useState , useEffect } from "react";
+import React , { useState } from "react";
 // reactstrap components
 import {
   Button,
@@ -11,36 +11,32 @@ import {
 } from "reactstrap";
 
 import { useDispatch } from "react-redux";
-import { UpdateDepartement , fetchDepartement } from "../../../store/actions/departements";
+import { CreateFormation , fetchFormations } from "../../../store/actions/formations";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
-const EditDepartement = ({ setMessage , toggleEditModal , open  , currentPage , className , depart }) => {
+
+const EditFormation = ({ setMessage , toggleAddModal , open  , currentPage , className }) => {
    
+  const [name, setDepartementName] = useState("")
   const dispatch = useDispatch()
-  const [name, setName] = useState('')
 
   const saveDepartement = () => {
-      dispatch(UpdateDepartement({data:{id:depart.id,name}}))
+      dispatch(CreateFormation({data:{name}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
-        dispatch(fetchDepartement({
+        dispatch(fetchFormations({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
         }))
-        toggleEditModal(false)
-        notyf.success('Your changes have been successfully saved!');
+        toggleAddModal(false)
+        notyf.success('Your record have been successfully saved!');
       })
       .catch(()=> {
         setMessage("Data Saved")
-        notyf.error('Error while Saving');
+        notyf.error('Error while Adding');
       })
   }
-  useEffect(() => {
-    if(Object.keys(depart).length !== 0){
-      setName(depart.name)
-    }
-  }, [depart])
 
   return (
     <>
@@ -48,18 +44,18 @@ const EditDepartement = ({ setMessage , toggleEditModal , open  , currentPage , 
         className={className}
         isOpen={open}
         fade={true}
-        toggle={() => toggleEditModal(false)}>
+        toggle={() => toggleAddModal(false)}>
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Edit Departement
+            Add Formation
           </h4>
           <button
             aria-label="Close"
             className="close"
             data-dismiss="modal"
             type="button"
-            onClick={() => toggleEditModal(false)}
+            onClick={() => toggleAddModal(false)}
           >
             <span aria-hidden={true}>×</span>
           </button>
@@ -69,7 +65,7 @@ const EditDepartement = ({ setMessage , toggleEditModal , open  , currentPage , 
             <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>Departement Name :</strong> </Label>
-                <Input value={name} onChange={(e)=>  setName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
+                <Input onChange={(e)=>  setDepartementName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>
@@ -86,4 +82,4 @@ const EditDepartement = ({ setMessage , toggleEditModal , open  , currentPage , 
 }
 
 
-export default EditDepartement
+export default EditFormation

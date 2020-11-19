@@ -9,15 +9,15 @@ export const loadTickets = tickets => ({
 });
 
 export const CreateTicket = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "tickets/create", params)
   };
 };
 
 
 export const DeleteTicket = (params) => {
-  return dispatch => {
-    return dataProvider("DELETE_MANY", "tickets/delete", params)
+  return () => {
+    return dataProvider("DELETE", "tickets/delete", params)
   };
 };
 
@@ -37,7 +37,7 @@ export const fetchTickets = (params = {
 
 
 export const fetchOneTicket = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "tickets", params)
   };
 };

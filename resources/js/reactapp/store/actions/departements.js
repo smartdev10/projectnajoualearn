@@ -22,7 +22,7 @@ export const UpdateDepartement = (params) => {
 
 export const DeleteDepartement = (params) => {
   return () => {
-    return dataProvider("DELETE_MANY", "departements/delete", params)
+    return dataProvider("DELETE", "departements/delete", params)
   };
 };
 
@@ -31,12 +31,13 @@ export const fetchDepartement = (params = {
   sort: { field: 'name' , order: 'ASC' },
   filter: {},
 }) => {
-  return dispatch => {
-    return dataProvider("GET_LIST", "departements", params).then((res)=>{
-      dispatch(loadDepartements(res))
-    }).catch(err => {
-      handleTokenErrors(err)
-    });
+  return async dispatch => {
+    try {
+      const res = await dataProvider("GET_LIST", "departements", params);
+      dispatch(loadDepartements(res));
+    } catch (err) {
+      handleTokenErrors(err);
+    }
   };
 };
 

@@ -19,7 +19,8 @@ import EditDepartement from "../../modals/departements/EditDepartement";
 import Paginations from "../../partials/pagination";
 import Confirm from "../../modals/Confirm";
 // core components
-
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
 const Departements = () => {
  
@@ -44,6 +45,7 @@ const Departements = () => {
       setMessage("Deleting ...")
       dispatch(DeleteDepartement({id})).then(()=>{
         setMessage("Deleted")
+        notyf.success('Your record have been successfully deleted!');
         dispatch(fetchDepartement({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
@@ -53,6 +55,7 @@ const Departements = () => {
           setMessage("Are you Sure ?!")
         })
       }).catch(()=>{
+        notyf.error('Error while Deleting');
         setMessage("Error While Deleting!")
       })
     }
