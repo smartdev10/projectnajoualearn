@@ -16,7 +16,7 @@ class CreateFormationsTable extends Migration
         Schema::create('formations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId('module_id')->constrained('modules');
+            $table->string('description');
             $table->timestamps();
         });
     }

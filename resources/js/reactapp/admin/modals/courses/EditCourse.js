@@ -11,35 +11,35 @@ import {
 } from "reactstrap";
 
 import { useDispatch , useSelector } from "react-redux";
-import { UpdateModule , fetchModules } from "../../../store/actions/modules";
-import { fetchFormations } from "../../../store/actions/formations";
+import { UpdateCourse , fetchCourses } from "../../../store/actions/courses";
+import { fetchModules } from "../../../store/actions/modules";
 
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
 
-const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , className , depart }) => {
+const EditCourse = ({ toggleEditModal , open  , currentPage , className , depart }) => {
    
   const [name, setModuleName] = useState("")
   const [description, setModuleDescription] = useState("")
-  const [formation_id, setFormationId] = useState(0)
-  const formations = useSelector(state => state.formations)
+  const [module_id, setModuleId] = useState(0)
+  const modules = useSelector(state => state.modules)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchFormations())
+    dispatch(fetchModules())
     if(Object.keys(depart).length !== 0){
       setModuleName(depart.name)
-      setFormationId(depart.formation_id)
+      setModuleId(depart.formation_id)
       setModuleDescription(depart.description)
     }
   }, [depart])
 
-  const saveModule = () => {
-      dispatch(UpdateModule({data:{id:depart.id,name,description,formation_id}}))
+  const save = () => {
+      dispatch(UpdateCourse({data:{id:depart.id,name,description}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
-        dispatch(fetchModules({
+        dispatch(fetchCourses({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
@@ -48,7 +48,6 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
         notyf.success('Your record have been successfully saved!');
       })
       .catch(()=> {
-        setMessage("Data Saved")
         notyf.error('Error while Adding');
       })
   }
@@ -63,15 +62,15 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Edit Module
+            Edit Course
           </h4>
           <button
             aria-label="Close"
             className="close"
             data-dismiss="modal"
             type="button"
-            onClick={() => toggleEditModal(false)}
-          >
+            onClick={() => toggleEditModal(false)}>
+
             <span aria-hidden={true}>×</span>
           </button>
         </div>
@@ -86,11 +85,11 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
          
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleSelect">Select Formation</Label>
-                <Input value={formation_id} onChange={(e)=> setFormationId(e.target.value) } type="select" name="module_id" id="exampleSelect">
+                <Label for="exampleSelect">Select Module</Label>
+                <Input value={module_id} onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
                   <option value={""} key='er'></option>
                   {
-                  formations ? formations.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
+                   modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }
                 </Input>
               </FormGroup>
@@ -105,7 +104,7 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
           </ListGroup>
         </div>
         <div className="modal-footer">
-          <Button  onClick={()=> saveModule() } color="primary" type="button">
+          <Button  onClick={()=> save() } color="primary" type="button">
            <i className="mr-2 fas fa-save"></i>
             Save
           </Button>
@@ -116,4 +115,4 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
 }
 
 
-export default EditModule
+export default EditCourse

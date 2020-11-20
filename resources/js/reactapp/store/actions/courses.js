@@ -1,6 +1,7 @@
 import { dataProvider } from "../api";
 import { LOAD_COURSES } from "../actionTypes";
-
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 export const loadCourses = courses => ({
   type: LOAD_COURSES,
   courses
@@ -29,14 +30,19 @@ export const fetchCourses = (params = {
   sort: { field: 'name' , order: 'ASC' },
   filter: {},
 }) => {
-  return dispatch => {
-    return dataProvider("GET_LIST", "courses", params)
+  return async (dispatch) => {
+    try {
+      const res = await dataProvider("GET_LIST", "courses", params)
+      dispatch(loadCourses(res))
+    } catch (error) {
+     notyf.error('Error while Fetching');
+    }
   };
 };
 
 
 export const fetchOneCourse = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "courses", params)
   };
 };

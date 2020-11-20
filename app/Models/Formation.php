@@ -10,7 +10,7 @@ class Formation extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'module_id'
+        'description'
     ];
 
 

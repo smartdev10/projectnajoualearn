@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React , { useEffect, useState } from "react";
 // reactstrap components
 import {
   Button,
@@ -10,18 +10,25 @@ import {
   Label,
 } from "reactstrap";
 
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { CreateModule , fetchModules } from "../../../store/actions/modules";
+import { fetchFormations } from "../../../store/actions/formations";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
 const AddModule = ({  toggleAddModal , open  , currentPage , className }) => {
    
   const [name, setModuleName] = useState("")
   const [description, setModuleDescription] = useState("")
+  const [formation_id, setFormationId] = useState(0)
   const dispatch = useDispatch()
+  const formations = useSelector(state => state.formations)
+
+  useEffect(()=>{
+   dispatch(fetchFormations())
+  },[])
 
   const saveDepartement = () => {
-      dispatch(CreateModule({data:{name, description}}))
+      dispatch(CreateModule({data:{name,description, formation_id}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchModules({
@@ -67,6 +74,18 @@ const AddModule = ({  toggleAddModal , open  , currentPage , className }) => {
                 <Input onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
               </FormGroup>
              </ListGroupItem>
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleSelect">Select Formation</Label>
+                <Input onChange={(e)=> setFormationId(e.target.value) } type="select" name="module_id" id="exampleSelect">
+                  <option value={""} key='er'></option>
+                  {
+                  formations ? formations.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
+                  }
+                </Input>
+              </FormGroup>
+             </ListGroupItem>
+             
              <ListGroupItem>
              <FormGroup>
                 <Label for="Description">Description</Label>

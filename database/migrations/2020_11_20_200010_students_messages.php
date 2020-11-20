@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModulesTable extends Migration
+class StudentsMessages extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        //
+        Schema::create('students_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('formation_id')->constrained('formations');
-            $table->string('description');
+            $table->foreignId('room_id')->constrained('students_rooms');
+            $table->text('message');
+            $table->boolean('is_seen')->default(false);
             $table->timestamps();
         });
     }
@@ -29,7 +30,7 @@ class CreateModulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formations');
-        Schema::dropIfExists('modules');
+        //
+        Schema::dropIfExists('students_messages');
     }
 }

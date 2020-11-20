@@ -14,14 +14,14 @@ class FormatiomController extends Controller
 
         $validator = Validator::make($request->all(), [
            'name' => 'required',
-           'module_id' => 'required',
+           'description' => 'required',
         ]);
         if ($validator->fails()) {
            return response()->json(['error'=>$validator->errors()], 404);
         }
         $formation= Formation::create([
            'name' => $request->get('name'),
-           'module_id' => $request->get('module_id'),
+           'description' => $request->get('description'),
         ]);
         $formation->save(); 
         return response()->json(['message'=>'created']);
@@ -44,7 +44,7 @@ class FormatiomController extends Controller
    public function edit(Request $request  , $id){
       $formation = Formation::find($id);
       $formation->name = $request->name;
-      $formation->module_id = $request->module_id;
+      $formation->description = $request->description;
       $formation->save();
       return response()->json(['message'=>'saved']);
 

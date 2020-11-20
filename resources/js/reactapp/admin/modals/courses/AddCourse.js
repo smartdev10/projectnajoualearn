@@ -1,4 +1,4 @@
-import React , { useState , useEffect } from "react";
+import React , { useEffect, useState } from "react";
 // reactstrap components
 import {
   Button,
@@ -11,44 +11,37 @@ import {
 } from "reactstrap";
 
 import { useDispatch , useSelector } from "react-redux";
-import { UpdateModule , fetchModules } from "../../../store/actions/modules";
-import { fetchFormations } from "../../../store/actions/formations";
-
+import { CreateCourse , fetchCourses } from "../../../store/actions/courses";
+import { fetchModules  } from "../../../store/actions/modules";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
-
-const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , className , depart }) => {
+const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
    
   const [name, setModuleName] = useState("")
   const [description, setModuleDescription] = useState("")
-  const [formation_id, setFormationId] = useState(0)
-  const formations = useSelector(state => state.formations)
-
+  const [prerequisite, setPreReq] = useState("")
+  const [difficulty_level, setDifficultyLevel] = useState("")
+  const [module_id, setModuleId] = useState(0)
   const dispatch = useDispatch()
+  const modules = useSelector(state => state.modules)
 
-  useEffect(() => {
-    dispatch(fetchFormations())
-    if(Object.keys(depart).length !== 0){
-      setModuleName(depart.name)
-      setFormationId(depart.formation_id)
-      setModuleDescription(depart.description)
-    }
-  }, [depart])
+  useEffect(()=>{
+   dispatch(fetchModules())
+  },[])
 
-  const saveModule = () => {
-      dispatch(UpdateModule({data:{id:depart.id,name,description,formation_id}}))
+  const save = () => {
+      dispatch(CreateCourse({data:{name,description,prerequisite,difficulty_level,module_id}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
-        dispatch(fetchModules({
+        dispatch(fetchCourses({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
         }))
-        toggleEditModal(false)
+        toggleAddModal(false)
         notyf.success('Your record have been successfully saved!');
       })
       .catch(()=> {
-        setMessage("Data Saved")
         notyf.error('Error while Adding');
       })
   }
@@ -59,18 +52,18 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
         className={className}
         isOpen={open}
         fade={true}
-        toggle={() => toggleEditModal(false)}>
+        toggle={() => toggleAddModal(false)}>
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Edit Module
+            Add Course
           </h4>
           <button
             aria-label="Close"
             className="close"
             data-dismiss="modal"
             type="button"
-            onClick={() => toggleEditModal(false)}
+            onClick={() => toggleAddModal(false)}
           >
             <span aria-hidden={true}>×</span>
           </button>
@@ -80,22 +73,37 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
             <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>Module Name :</strong> </Label>
-                <Input value={name} onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
+                <Input onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
               </FormGroup>
              </ListGroupItem>
-         
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="name"><strong>PreRequisites :</strong> </Label>
+                <Input onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+              </FormGroup>
+             </ListGroupItem>
+
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="name"><strong>Difficulty Level :</strong> </Label>
+                <Input onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+              </FormGroup>
+             </ListGroupItem>
+
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleSelect">Select Formation</Label>
-                <Input value={formation_id} onChange={(e)=> setFormationId(e.target.value) } type="select" name="module_id" id="exampleSelect">
+                <Input onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
                   <option value={""} key='er'></option>
                   {
-                  formations ? formations.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
+                  modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }
                 </Input>
               </FormGroup>
              </ListGroupItem>
-
+             
              <ListGroupItem>
              <FormGroup>
                 <Label for="Description">Description</Label>
@@ -105,7 +113,7 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
           </ListGroup>
         </div>
         <div className="modal-footer">
-          <Button  onClick={()=> saveModule() } color="primary" type="button">
+          <Button  onClick={()=> save() } color="primary" type="button">
            <i className="mr-2 fas fa-save"></i>
             Save
           </Button>
@@ -116,4 +124,4 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
 }
 
 
-export default EditModule
+export default AddCourse

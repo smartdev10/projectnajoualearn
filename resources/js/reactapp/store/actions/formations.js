@@ -22,7 +22,7 @@ export const UpdateFormation = (params) => {
 
 export const DeleteFormation = (params) => {
   return () => {
-    return dataProvider("DELETE_MANY", "formations/delete", params)
+    return dataProvider("DELETE", "formations/delete", params)
   };
 };
 

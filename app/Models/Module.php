@@ -11,6 +11,7 @@ class Module extends Model
 
     protected $fillable = [
         'name',
+        'formation_id',
         'description'
     ];
 

@@ -1,5 +1,5 @@
-import React , { useEffect, useState } from "react";
-import { useDispatch , useSelector } from "react-redux";
+import React , { useState } from "react";
+import { useDispatch } from "react-redux";
 // reactstrap components
 import {
   Button,
@@ -12,23 +12,18 @@ import {
 } from "reactstrap";
 
 import { CreateFormation , fetchFormations } from "../../../store/actions/formations";
-import { fetchModules } from "../../../store/actions/modules";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
 const AddFormation = ({ setMessage , toggleAddModal , open  , currentPage , className }) => {
    
   const [name, setFormationName] = useState("")
-  const [module_id, setModuleId] = useState(0)
-  const modules = useSelector(state => state.modules)
+  const [description, setModuleDescription] = useState("")
   const dispatch = useDispatch()
 
-  useEffect(()=>{
-    dispatch(fetchModules())
-  },[])
 
-  const saveDepartement = () => {
-    if(module_id && name){
-      dispatch(CreateFormation({data:{name, module_id}}))
+  const save = () => {
+    if(description && name){
+      dispatch(CreateFormation({data:{name, description}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchFormations({
@@ -80,19 +75,14 @@ const AddFormation = ({ setMessage , toggleAddModal , open  , currentPage , clas
              </ListGroupItem>
              <ListGroupItem>
              <FormGroup>
-              <Label for="exampleSelect">Select Module</Label>
-              <Input onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
-                <option value={""} key='er'></option>
-                {
-                 modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
-                }
-              </Input>
-            </FormGroup>
+                <Label for="Description">Description</Label>
+                <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
+              </FormGroup>
              </ListGroupItem>
           </ListGroup>
         </div>
         <div className="modal-footer">
-          <Button  onClick={()=> saveDepartement() } color="primary" type="button">
+          <Button  onClick={()=> save() } color="primary" type="button">
            <i className="mr-2 fas fa-save"></i>
             Save
           </Button>

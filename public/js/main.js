@@ -82869,6 +82869,395 @@ var Confirm = function Confirm(props) {
 
 /***/ }),
 
+/***/ "./resources/js/reactapp/admin/modals/courses/AddCourse.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/reactapp/admin/modals/courses/AddCourse.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions_courses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/actions/courses */ "./resources/js/reactapp/store/actions/courses.js");
+/* harmony import */ var _store_actions_modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/actions/modules */ "./resources/js/reactapp/store/actions/modules.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+ // reactstrap components
+
+
+
+
+
+
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_5__["Notyf"]();
+
+var AddCourse = function AddCourse(_ref) {
+  var toggleAddModal = _ref.toggleAddModal,
+      open = _ref.open,
+      currentPage = _ref.currentPage,
+      className = _ref.className;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      name = _useState2[0],
+      setModuleName = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      description = _useState4[0],
+      setModuleDescription = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      prerequisite = _useState6[0],
+      setPreReq = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState8 = _slicedToArray(_useState7, 2),
+      difficulty_level = _useState8[0],
+      setDifficultyLevel = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      module_id = _useState10[0],
+      setModuleId = _useState10[1];
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  var modules = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.modules;
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatch(Object(_store_actions_modules__WEBPACK_IMPORTED_MODULE_4__["fetchModules"])());
+  }, []);
+
+  var save = function save() {
+    dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_3__["CreateCourse"])({
+      data: {
+        name: name,
+        description: description,
+        prerequisite: prerequisite,
+        difficulty_level: difficulty_level,
+        module_id: module_id
+      }
+    })).then(function () {
+      var offset = (currentPage - 1) * 10;
+      dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_3__["fetchCourses"])({
+        pagination: {
+          page: offset,
+          perPage: offset + 10
+        },
+        sort: {
+          field: 'name',
+          order: 'ASC'
+        },
+        filter: {}
+      }));
+      toggleAddModal(false);
+      notyf.success('Your record have been successfully saved!');
+    })["catch"](function () {
+      notyf.error('Error while Adding');
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+    className: className,
+    isOpen: open,
+    fade: true,
+    toggle: function toggle() {
+      return toggleAddModal(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modal-header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "modal-title",
+    id: "modal-title-default"
+  }, "Add Course"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    "aria-label": "Close",
+    className: "close",
+    "data-dismiss": "modal",
+    type: "button",
+    onClick: function onClick() {
+      return toggleAddModal(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    "aria-hidden": true
+  }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container modal-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Module Name :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setModuleName(e.target.value);
+    },
+    type: "text",
+    name: "name",
+    id: "name",
+    placeholder: "Enter Module Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "PreRequisites :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setPreReq(e.target.value);
+    },
+    type: "text",
+    name: "name",
+    id: "name",
+    placeholder: "Enter Module Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Difficulty Level :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setDifficultyLevel(e.target.value);
+    },
+    type: "text",
+    name: "name",
+    id: "name",
+    placeholder: "Enter Module Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "exampleSelect"
+  }, "Select Formation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setModuleId(e.target.value);
+    },
+    type: "select",
+    name: "module_id",
+    id: "exampleSelect"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "",
+    key: "er"
+  }), modules ? modules.map(function (mod, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: mod.id,
+      key: i
+    }, mod.name);
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "loading...",
+    key: "er"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "Description"
+  }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setModuleDescription(e.target.value);
+    },
+    type: "textarea",
+    name: "text",
+    id: "description",
+    placeholder: "Enter Module description"
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modal-footer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: function onClick() {
+      return save();
+    },
+    color: "primary",
+    type: "button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mr-2 fas fa-save"
+  }), "Save"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (AddCourse);
+
+/***/ }),
+
+/***/ "./resources/js/reactapp/admin/modals/courses/EditCourse.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/reactapp/admin/modals/courses/EditCourse.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions_courses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/actions/courses */ "./resources/js/reactapp/store/actions/courses.js");
+/* harmony import */ var _store_actions_modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/actions/modules */ "./resources/js/reactapp/store/actions/modules.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+ // reactstrap components
+
+
+
+
+
+
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_5__["Notyf"]();
+
+var EditCourse = function EditCourse(_ref) {
+  var toggleEditModal = _ref.toggleEditModal,
+      open = _ref.open,
+      currentPage = _ref.currentPage,
+      className = _ref.className,
+      depart = _ref.depart;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      name = _useState2[0],
+      setModuleName = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      description = _useState4[0],
+      setModuleDescription = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState6 = _slicedToArray(_useState5, 2),
+      module_id = _useState6[0],
+      setModuleId = _useState6[1];
+
+  var modules = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.modules;
+  });
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatch(Object(_store_actions_modules__WEBPACK_IMPORTED_MODULE_4__["fetchModules"])());
+
+    if (Object.keys(depart).length !== 0) {
+      setModuleName(depart.name);
+      setModuleId(depart.formation_id);
+      setModuleDescription(depart.description);
+    }
+  }, [depart]);
+
+  var save = function save() {
+    dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_3__["UpdateCourse"])({
+      data: {
+        id: depart.id,
+        name: name,
+        description: description
+      }
+    })).then(function () {
+      var offset = (currentPage - 1) * 10;
+      dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_3__["fetchCourses"])({
+        pagination: {
+          page: offset,
+          perPage: offset + 10
+        },
+        sort: {
+          field: 'name',
+          order: 'ASC'
+        },
+        filter: {}
+      }));
+      toggleEditModal(false);
+      notyf.success('Your record have been successfully saved!');
+    })["catch"](function () {
+      notyf.error('Error while Adding');
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+    className: className,
+    isOpen: open,
+    fade: true,
+    toggle: function toggle() {
+      return toggleEditModal(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modal-header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "modal-title",
+    id: "modal-title-default"
+  }, "Edit Course"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    "aria-label": "Close",
+    className: "close",
+    "data-dismiss": "modal",
+    type: "button",
+    onClick: function onClick() {
+      return toggleEditModal(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    "aria-hidden": true
+  }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container modal-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Module Name :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: name,
+    onChange: function onChange(e) {
+      return setModuleName(e.target.value);
+    },
+    type: "text",
+    name: "name",
+    id: "name",
+    placeholder: "Enter Departement Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "exampleSelect"
+  }, "Select Module"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: module_id,
+    onChange: function onChange(e) {
+      return setModuleId(e.target.value);
+    },
+    type: "select",
+    name: "module_id",
+    id: "exampleSelect"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "",
+    key: "er"
+  }), modules ? modules.map(function (mod, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: mod.id,
+      key: i
+    }, mod.name);
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "loading...",
+    key: "er"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "Description"
+  }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setModuleDescription(e.target.value);
+    },
+    type: "textarea",
+    name: "text",
+    id: "description",
+    placeholder: "Enter Module description"
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modal-footer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: function onClick() {
+      return save();
+    },
+    color: "primary",
+    type: "button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mr-2 fas fa-save"
+  }), "Save"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (EditCourse);
+
+/***/ }),
+
 /***/ "./resources/js/reactapp/admin/modals/departements/AddDepartement.js":
 /*!***************************************************************************!*\
   !*** ./resources/js/reactapp/admin/modals/departements/AddDepartement.js ***!
@@ -83142,8 +83531,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
 /* harmony import */ var _store_actions_formations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/actions/formations */ "./resources/js/reactapp/store/actions/formations.js");
-/* harmony import */ var _store_actions_modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/actions/modules */ "./resources/js/reactapp/store/actions/modules.js");
-/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -83162,8 +83550,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-var notyf = new notyf__WEBPACK_IMPORTED_MODULE_5__["Notyf"]();
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_4__["Notyf"]();
 
 var AddFormation = function AddFormation(_ref) {
   var setMessage = _ref.setMessage,
@@ -83177,25 +83564,19 @@ var AddFormation = function AddFormation(_ref) {
       name = _useState2[0],
       setFormationName = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      module_id = _useState4[0],
-      setModuleId = _useState4[1];
+      description = _useState4[0],
+      setModuleDescription = _useState4[1];
 
-  var modules = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
-    return state.modules;
-  });
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    dispatch(Object(_store_actions_modules__WEBPACK_IMPORTED_MODULE_4__["fetchModules"])());
-  }, []);
 
-  var saveDepartement = function saveDepartement() {
-    if (module_id && name) {
+  var save = function save() {
+    if (description && name) {
       dispatch(Object(_store_actions_formations__WEBPACK_IMPORTED_MODULE_3__["CreateFormation"])({
         data: {
           name: name,
-          module_id: module_id
+          description: description
         }
       })).then(function () {
         var offset = (currentPage - 1) * 10;
@@ -83256,30 +83637,20 @@ var AddFormation = function AddFormation(_ref) {
     id: "name",
     placeholder: "Enter Departement Name"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Label"], {
-    "for": "exampleSelect"
-  }, "Select Module"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Input"], {
+    "for": "Description"
+  }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Input"], {
     onChange: function onChange(e) {
-      return setModuleId(e.target.value);
+      return setModuleDescription(e.target.value);
     },
-    type: "select",
-    name: "module_id",
-    id: "exampleSelect"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: "",
-    key: "er"
-  }), modules ? modules.map(function (mod, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      value: mod.id,
-      key: i
-    }, mod.name);
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: "loading...",
-    key: "er"
-  })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    type: "textarea",
+    name: "text",
+    id: "description",
+    placeholder: "Enter Module description"
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
     onClick: function onClick() {
-      return saveDepartement();
+      return save();
     },
     color: "primary",
     type: "button"
@@ -83328,23 +83699,30 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var notyf = new notyf__WEBPACK_IMPORTED_MODULE_4__["Notyf"]();
 
 var EditFormation = function EditFormation(_ref) {
-  var setMessage = _ref.setMessage,
-      toggleAddModal = _ref.toggleAddModal,
+  var toggleEditModal = _ref.toggleEditModal,
       open = _ref.open,
       currentPage = _ref.currentPage,
-      className = _ref.className;
+      className = _ref.className,
+      depart = _ref.depart;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       name = _useState2[0],
-      setDepartementName = _useState2[1];
+      setFormationName = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      description = _useState4[0],
+      setDescription = _useState4[1];
 
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
 
-  var saveDepartement = function saveDepartement() {
-    dispatch(Object(_store_actions_formations__WEBPACK_IMPORTED_MODULE_3__["CreateFormation"])({
+  var save = function save() {
+    dispatch(Object(_store_actions_formations__WEBPACK_IMPORTED_MODULE_3__["UpdateFormation"])({
       data: {
-        name: name
+        id: depart.id,
+        name: name,
+        description: description
       }
     })).then(function () {
       var offset = (currentPage - 1) * 10;
@@ -83359,20 +83737,25 @@ var EditFormation = function EditFormation(_ref) {
         },
         filter: {}
       }));
-      toggleAddModal(false);
+      toggleEditModal(false);
       notyf.success('Your record have been successfully saved!');
     })["catch"](function () {
-      setMessage("Data Saved");
       notyf.error('Error while Adding');
     });
   };
 
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (Object.keys(depart).length !== 0) {
+      setFormationName(depart.name);
+      setDescription(depart.description);
+    }
+  }, [depart]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
     className: className,
     isOpen: open,
     fade: true,
     toggle: function toggle() {
-      return toggleAddModal(false);
+      return toggleEditModal(false);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-header"
@@ -83385,7 +83768,7 @@ var EditFormation = function EditFormation(_ref) {
     "data-dismiss": "modal",
     type: "button",
     onClick: function onClick() {
-      return toggleAddModal(false);
+      return toggleEditModal(false);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     "aria-hidden": true
@@ -83393,19 +83776,31 @@ var EditFormation = function EditFormation(_ref) {
     className: "container modal-body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "name"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Departement Name :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Formation Name :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: name,
     onChange: function onChange(e) {
-      return setDepartementName(e.target.value);
+      return setFormationName(e.target.value);
     },
     type: "text",
     name: "name",
     id: "name",
     placeholder: "Enter Departement Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "Description"
+  }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: description,
+    onChange: function onChange(e) {
+      return setDescription(e.target.value);
+    },
+    type: "textarea",
+    name: "text",
+    id: "description",
+    placeholder: "Enter Module description"
   }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     onClick: function onClick() {
-      return saveDepartement();
+      return save();
     },
     color: "primary",
     type: "button"
@@ -83432,7 +83827,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_actions_modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/actions/modules */ "./resources/js/reactapp/store/actions/modules.js");
-/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+/* harmony import */ var _store_actions_formations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/actions/formations */ "./resources/js/reactapp/store/actions/formations.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -83451,7 +83847,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var notyf = new notyf__WEBPACK_IMPORTED_MODULE_4__["Notyf"]();
+
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_5__["Notyf"]();
 
 var AddModule = function AddModule(_ref) {
   var toggleAddModal = _ref.toggleAddModal,
@@ -83469,13 +83866,25 @@ var AddModule = function AddModule(_ref) {
       description = _useState4[0],
       setModuleDescription = _useState4[1];
 
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState6 = _slicedToArray(_useState5, 2),
+      formation_id = _useState6[0],
+      setFormationId = _useState6[1];
+
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  var formations = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.formations;
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatch(Object(_store_actions_formations__WEBPACK_IMPORTED_MODULE_4__["fetchFormations"])());
+  }, []);
 
   var saveDepartement = function saveDepartement() {
     dispatch(Object(_store_actions_modules__WEBPACK_IMPORTED_MODULE_3__["CreateModule"])({
       data: {
         name: name,
-        description: description
+        description: description,
+        formation_id: formation_id
       }
     })).then(function () {
       var offset = (currentPage - 1) * 10;
@@ -83532,6 +83941,26 @@ var AddModule = function AddModule(_ref) {
     id: "name",
     placeholder: "Enter Module Name"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "exampleSelect"
+  }, "Select Formation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    onChange: function onChange(e) {
+      return setFormationId(e.target.value);
+    },
+    type: "select",
+    name: "module_id",
+    id: "exampleSelect"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "",
+    key: "er"
+  }), formations ? formations.map(function (mod, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: mod.id,
+      key: i
+    }, mod.name);
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "loading...",
+    key: "er"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "Description"
   }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     onChange: function onChange(e) {
@@ -83572,7 +84001,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_actions_modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/actions/modules */ "./resources/js/reactapp/store/actions/modules.js");
-/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+/* harmony import */ var _store_actions_formations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/actions/formations */ "./resources/js/reactapp/store/actions/formations.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -83591,7 +84021,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var notyf = new notyf__WEBPACK_IMPORTED_MODULE_4__["Notyf"]();
+
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_5__["Notyf"]();
 
 var EditModule = function EditModule(_ref) {
   var setMessage = _ref.setMessage,
@@ -83611,10 +84042,21 @@ var EditModule = function EditModule(_ref) {
       description = _useState4[0],
       setModuleDescription = _useState4[1];
 
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState6 = _slicedToArray(_useState5, 2),
+      formation_id = _useState6[0],
+      setFormationId = _useState6[1];
+
+  var formations = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.formations;
+  });
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatch(Object(_store_actions_formations__WEBPACK_IMPORTED_MODULE_4__["fetchFormations"])());
+
     if (Object.keys(depart).length !== 0) {
       setModuleName(depart.name);
+      setFormationId(depart.formation_id);
       setModuleDescription(depart.description);
     }
   }, [depart]);
@@ -83624,7 +84066,8 @@ var EditModule = function EditModule(_ref) {
       data: {
         id: depart.id,
         name: name,
-        description: description
+        description: description,
+        formation_id: formation_id
       }
     })).then(function () {
       var offset = (currentPage - 1) * 10;
@@ -83673,7 +84116,7 @@ var EditModule = function EditModule(_ref) {
     className: "container modal-body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "name"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Departement Name :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Module Name :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     value: name,
     onChange: function onChange(e) {
       return setModuleName(e.target.value);
@@ -83682,10 +84125,30 @@ var EditModule = function EditModule(_ref) {
     name: "name",
     id: "name",
     placeholder: "Enter Departement Name"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "exampleSelect"
+  }, "Select Formation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: formation_id,
+    onChange: function onChange(e) {
+      return setFormationId(e.target.value);
+    },
+    type: "select",
+    name: "module_id",
+    id: "exampleSelect"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "",
+    key: "er"
+  }), formations ? formations.map(function (mod, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      value: mod.id,
+      key: i
+    }, mod.name);
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "loading...",
+    key: "er"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "Description"
   }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    value: description,
     onChange: function onChange(e) {
       return setModuleDescription(e.target.value);
     },
@@ -84439,13 +84902,250 @@ function index() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return index; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_actions_courses__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../store/actions/courses */ "./resources/js/reactapp/store/actions/courses.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _modals_courses_AddCourse__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modals/courses/AddCourse */ "./resources/js/reactapp/admin/modals/courses/AddCourse.js");
+/* harmony import */ var _modals_courses_EditCourse__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../modals/courses/EditCourse */ "./resources/js/reactapp/admin/modals/courses/EditCourse.js");
+/* harmony import */ var _partials_pagination__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../partials/pagination */ "./resources/js/reactapp/admin/partials/pagination.js");
+/* harmony import */ var _modals_Confirm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modals/Confirm */ "./resources/js/reactapp/admin/modals/Confirm.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function index() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "Cours");
-}
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+ // reactstrap components
+
+
+
+
+
+
+
+ // core components
+
+
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_10__["Notyf"]();
+
+var Courses = function Courses() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      addModal = _useState2[0],
+      setToggleAddModal = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      editModal = _useState4[0],
+      setToggleEditModal = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      confirm = _useState6[0],
+      setConfirmModal = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState8 = _slicedToArray(_useState7, 2),
+      id = _useState8[0],
+      setId = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1),
+      _useState10 = _slicedToArray(_useState9, 2),
+      currentPage = _useState10[0],
+      setCurrentPage = _useState10[1];
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("Are you Sure ?!"),
+      _useState12 = _slicedToArray(_useState11, 2),
+      message = _useState12[0],
+      setMessage = _useState12[1];
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+      _useState14 = _slicedToArray(_useState13, 2),
+      depart = _useState14[0],
+      setDeprt = _useState14[1];
+
+  var courses = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.courses;
+  });
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
+  var totalDepart = 11;
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_2__["fetchCourses"])());
+  }, [dispatch]);
+
+  var deleteAction = function deleteAction(id) {
+    var offset = (currentPage - 1) * 10;
+    setMessage("Deleting ...");
+    dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_2__["DeleteCourse"])({
+      id: id
+    })).then(function () {
+      setMessage("Deleted");
+      notyf.success('Your record have been successfully deleted!');
+      dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_2__["fetchCourses"])({
+        pagination: {
+          page: offset,
+          perPage: offset + 10
+        },
+        sort: {
+          field: 'name',
+          order: 'ASC'
+        },
+        filter: {}
+      })).then(function () {
+        setConfirmModal(false);
+        setMessage("Are you Sure ?!");
+      });
+    })["catch"](function () {
+      notyf.error('Error while Deleting');
+      setMessage("Error While Deleting!");
+    });
+  };
+
+  var onPageChanged = function onPageChanged(page, totalPages) {
+    var currentPage = Math.max(0, Math.min(page, totalPages));
+    var offset = (currentPage - 1) * 10;
+    dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_2__["fetchCourses"])({
+      pagination: {
+        page: offset,
+        perPage: 10
+      },
+      sort: {
+        field: 'name',
+        order: 'ASC'
+      },
+      filter: {}
+    }));
+    setCurrentPage(currentPage);
+  };
+
+  var renderCourses = function renderCourses() {
+    if (courses === null) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        className: "mb-0"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "text-center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
+        size: "4x",
+        className: "mr-3",
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSyncAlt"],
+        spin: true
+      })));
+    } else if (courses.length === 0) {
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        className: "mb-0"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: ""
+      }, "No data Available"));
+    } else {
+      return courses.map(function (dep) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: dep.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+          className: "align-middle",
+          scope: "row"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "mb-0 text-sm"
+        }, dep.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "align-middle"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex align-items-center"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "ml-2"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+          type: "button",
+          color: "primary",
+          onClick: function onClick() {
+            setDeprt(dep);
+            setToggleEditModal(true);
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-edit mr-2"
+        }), "edit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "ml-2"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+          type: "button",
+          color: "danger",
+          onClick: function onClick() {
+            setId(dep.id);
+            setConfirmModal(function (c) {
+              return !c;
+            });
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-trash-alt mr-2"
+        }), "delete")))));
+      });
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, addModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modals_courses_AddCourse__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    open: addModal,
+    toggleAddModal: setToggleAddModal
+  }), editModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modals_courses_EditCourse__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    depart: depart,
+    open: editModal,
+    toggleEditModal: setToggleEditModal
+  }), confirm && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modals_Confirm__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    message: message,
+    id: id,
+    confirm: confirm,
+    confirmAction: deleteAction,
+    toggleConfirmModal: setConfirmModal
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], {
+    className: "mt--7",
+    fluid: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "mr-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    className: "mb-3",
+    type: "button",
+    onClick: function onClick() {
+      setToggleAddModal(true);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "mr-2 fas fa-plus"
+  }), "Add Course"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Card"], {
+    className: "shadow"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["CardHeader"], {
+    className: "d-flex justify-content-start border-0"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "mb-0"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Table"], {
+    responsive: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
+    className: "thead-light"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
+  }, "name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: "col"
+  }, "actions"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, renderCourses())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["CardFooter"], {
+    className: "py-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_pagination__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    currentPage: currentPage,
+    pageLimit: 10,
+    pageNeighbours: 1,
+    onPageChanged: onPageChanged,
+    totalRecords: totalDepart
+  })))))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Courses);
 
 /***/ }),
 
@@ -85350,6 +86050,112 @@ var SET_CURRENT_USER = "SET_CURRENT_USER";
 
 /***/ }),
 
+/***/ "./resources/js/reactapp/store/actions/courses.js":
+/*!********************************************************!*\
+  !*** ./resources/js/reactapp/store/actions/courses.js ***!
+  \********************************************************/
+/*! exports provided: loadCourses, CreateCourse, UpdateCourse, DeleteCourse, fetchCourses, fetchOneCourse */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCourses", function() { return loadCourses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateCourse", function() { return CreateCourse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateCourse", function() { return UpdateCourse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteCourse", function() { return DeleteCourse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCourses", function() { return fetchCourses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchOneCourse", function() { return fetchOneCourse; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api */ "./resources/js/reactapp/store/api/index.js");
+/* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actionTypes */ "./resources/js/reactapp/store/actionTypes.js");
+/* harmony import */ var notyf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! notyf */ "./node_modules/notyf/notyf.es.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+var notyf = new notyf__WEBPACK_IMPORTED_MODULE_3__["Notyf"]();
+var loadCourses = function loadCourses(courses) {
+  return {
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_2__["LOAD_COURSES"],
+    courses: courses
+  };
+};
+var CreateCourse = function CreateCourse(params) {
+  return function () {
+    return Object(_api__WEBPACK_IMPORTED_MODULE_1__["dataProvider"])("CREATE", "courses/create", params);
+  };
+};
+var UpdateCourse = function UpdateCourse(params) {
+  return function () {
+    return Object(_api__WEBPACK_IMPORTED_MODULE_1__["dataProvider"])("UPDATE", "courses/update", params);
+  };
+};
+var DeleteCourse = function DeleteCourse(params) {
+  return function () {
+    return Object(_api__WEBPACK_IMPORTED_MODULE_1__["dataProvider"])("DELETE", "courses/delete", params);
+  };
+};
+var fetchCourses = function fetchCourses() {
+  var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    pagination: {
+      page: 1,
+      perPage: 10
+    },
+    sort: {
+      field: 'name',
+      order: 'ASC'
+    },
+    filter: {}
+  };
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(dispatch) {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return Object(_api__WEBPACK_IMPORTED_MODULE_1__["dataProvider"])("GET_LIST", "courses", params);
+
+            case 3:
+              res = _context.sent;
+              dispatch(loadCourses(res));
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              notyf.error('Error while Fetching');
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 7]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+var fetchOneCourse = function fetchOneCourse(params) {
+  return function () {
+    return Object(_api__WEBPACK_IMPORTED_MODULE_1__["dataProvider"])("GET_ONE", "courses", params);
+  };
+};
+
+/***/ }),
+
 /***/ "./resources/js/reactapp/store/actions/departements.js":
 /*!*************************************************************!*\
   !*** ./resources/js/reactapp/store/actions/departements.js ***!
@@ -85503,7 +86309,7 @@ var UpdateFormation = function UpdateFormation(params) {
 };
 var DeleteFormation = function DeleteFormation(params) {
   return function () {
-    return Object(_api__WEBPACK_IMPORTED_MODULE_2__["dataProvider"])("DELETE_MANY", "formations/delete", params);
+    return Object(_api__WEBPACK_IMPORTED_MODULE_2__["dataProvider"])("DELETE", "formations/delete", params);
   };
 };
 var fetchFormations = function fetchFormations() {

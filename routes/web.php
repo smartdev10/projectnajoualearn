@@ -92,6 +92,18 @@ Route::prefix('api/modules')->group(function () {
 });
 
 
+// module FUNCTIONS  Roots
+Route::prefix('api/courses')->group(function () {
+    Route::get('', [App\Http\Controllers\CoursesController::class, 'courses']);
+    Route::get('show/{id}', [App\Http\Controllers\CoursesController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\CoursesController::class, 'create']);
+    Route::put('update/{id}', [App\Http\Controllers\CoursesController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\CoursesController::class, 'destroy']);
+});
+
+
+
+
 
 
 

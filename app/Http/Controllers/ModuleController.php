@@ -13,13 +13,14 @@ class ModuleController extends Controller
 
         $validator = Validator::make($request->all(), [
            'name' => 'required',
-           'description' => 'required'
+           'formation_id' => 'required'
         ]);
         if ($validator->fails()) {
            return response()->json(['error'=>$validator->errors()], 404);
         }
         $model= Module::create([
            'name' => $request->get('name'),
+           'formation_id' => $request->get('formation_id'),
            'description' => $request->get('description'),
         ]);
         $model->save(); 
@@ -43,6 +44,7 @@ class ModuleController extends Controller
    public function edit(Request $request  , $id){
       $formation = Module::find($id);
       $formation->name = $request->name;
+      $formation->formation_id = $request->formation_id;
       $formation->description = $request->description;
       $formation->save();
       return response()->json(['message'=>'saved']);
