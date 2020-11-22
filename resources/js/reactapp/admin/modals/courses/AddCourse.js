@@ -30,7 +30,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
   },[])
 
   const save = () => {
-      dispatch(CreateCourse({data:{name,description,prerequisite,difficulty_level,module_id}}))
+      dispatch(CreateCourse({data:{name,description,prerequisite,difficulty_level,module_id,document_path:"file.pdf"}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchCourses({
@@ -80,7 +80,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
              <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>PreRequisites :</strong> </Label>
-                <Input onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+                <Input onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="name" id="prereq" placeholder="Enter Module Pre Requisites" />
               </FormGroup>
              </ListGroupItem>
 
@@ -88,15 +88,14 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
              <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>Difficulty Level :</strong> </Label>
-                <Input onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+                <Input onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="diffculty_level" id="diffculty_level" placeholder="Enter Module Difficulty Level" />
               </FormGroup>
              </ListGroupItem>
 
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleSelect">Select Formation</Label>
-                <Input onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
-                  <option value={""} key='er'></option>
+                <Label for="exampleSelect">Select Module</Label>
+                <Input defaultValue="" onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
                   {
                   modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }

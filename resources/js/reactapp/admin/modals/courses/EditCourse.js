@@ -21,6 +21,9 @@ const EditCourse = ({ toggleEditModal , open  , currentPage , className , depart
    
   const [name, setModuleName] = useState("")
   const [description, setModuleDescription] = useState("")
+  const [prerequisite, setPreReq] = useState("")
+  const [difficulty_level, setDifficultyLevel] = useState("")
+  const [document_path, setDocumentPath] = useState("file.pdf")
   const [module_id, setModuleId] = useState(0)
   const modules = useSelector(state => state.modules)
 
@@ -29,14 +32,18 @@ const EditCourse = ({ toggleEditModal , open  , currentPage , className , depart
   useEffect(() => {
     dispatch(fetchModules())
     if(Object.keys(depart).length !== 0){
+      console.log(depart)
       setModuleName(depart.name)
-      setModuleId(depart.formation_id)
+      setModuleId(depart.module_id)
       setModuleDescription(depart.description)
+      setPreReq(depart.prerequisite)
+      setDifficultyLevel(depart.difficulty_level)
+      setDocumentPath(depart.document_path)
     }
   }, [depart])
 
   const save = () => {
-      dispatch(UpdateCourse({data:{id:depart.id,name,description}}))
+      dispatch(UpdateCourse({data:{id:depart.id,module_id,prerequisite,name,description,difficulty_level,document_path}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchCourses({
@@ -83,11 +90,26 @@ const EditCourse = ({ toggleEditModal , open  , currentPage , className , depart
               </FormGroup>
              </ListGroupItem>
          
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="name"><strong>PreRequisites :</strong> </Label>
+                <Input value={prerequisite} onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="prereq" id="prereq" placeholder="Enter Module Name" />
+              </FormGroup>
+             </ListGroupItem>
+
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="name"><strong>Difficulty Level :</strong> </Label>
+                <Input value={difficulty_level} onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="difiiculty" id="difiiculty" placeholder="Enter Module Name" />
+              </FormGroup>
+             </ListGroupItem>
+
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleSelect">Select Module</Label>
                 <Input value={module_id} onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
-                  <option value={""} key='er'></option>
                   {
                    modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }
@@ -98,7 +120,7 @@ const EditCourse = ({ toggleEditModal , open  , currentPage , className , depart
              <ListGroupItem>
              <FormGroup>
                 <Label for="Description">Description</Label>
-                <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
+                <Input value={description} onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="description" id="description" placeholder="Enter Course description" />
               </FormGroup>
              </ListGroupItem>
           </ListGroup>

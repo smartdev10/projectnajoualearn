@@ -82952,7 +82952,8 @@ var AddCourse = function AddCourse(_ref) {
         description: description,
         prerequisite: prerequisite,
         difficulty_level: difficulty_level,
-        module_id: module_id
+        module_id: module_id,
+        document_path: "file.pdf"
       }
     })).then(function () {
       var offset = (currentPage - 1) * 10;
@@ -83016,8 +83017,8 @@ var AddCourse = function AddCourse(_ref) {
     },
     type: "text",
     name: "name",
-    id: "name",
-    placeholder: "Enter Module Name"
+    id: "prereq",
+    placeholder: "Enter Module Pre Requisites"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "name"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Difficulty Level :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
@@ -83025,22 +83026,20 @@ var AddCourse = function AddCourse(_ref) {
       return setDifficultyLevel(e.target.value);
     },
     type: "text",
-    name: "name",
-    id: "name",
-    placeholder: "Enter Module Name"
+    name: "diffculty_level",
+    id: "diffculty_level",
+    placeholder: "Enter Module Difficulty Level"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "exampleSelect"
-  }, "Select Formation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+  }, "Select Module"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    defaultValue: "",
     onChange: function onChange(e) {
       return setModuleId(e.target.value);
     },
     type: "select",
     name: "module_id",
     id: "exampleSelect"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: "",
-    key: "er"
-  }), modules ? modules.map(function (mod, i) {
+  }, modules ? modules.map(function (mod, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
       value: mod.id,
       key: i
@@ -83129,10 +83128,25 @@ var EditCourse = function EditCourse(_ref) {
       description = _useState4[0],
       setModuleDescription = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      module_id = _useState6[0],
-      setModuleId = _useState6[1];
+      prerequisite = _useState6[0],
+      setPreReq = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState8 = _slicedToArray(_useState7, 2),
+      difficulty_level = _useState8[0],
+      setDifficultyLevel = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("file.pdf"),
+      _useState10 = _slicedToArray(_useState9, 2),
+      document_path = _useState10[0],
+      setDocumentPath = _useState10[1];
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState12 = _slicedToArray(_useState11, 2),
+      module_id = _useState12[0],
+      setModuleId = _useState12[1];
 
   var modules = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
     return state.modules;
@@ -83142,9 +83156,13 @@ var EditCourse = function EditCourse(_ref) {
     dispatch(Object(_store_actions_modules__WEBPACK_IMPORTED_MODULE_4__["fetchModules"])());
 
     if (Object.keys(depart).length !== 0) {
+      console.log(depart);
       setModuleName(depart.name);
-      setModuleId(depart.formation_id);
+      setModuleId(depart.module_id);
       setModuleDescription(depart.description);
+      setPreReq(depart.prerequisite);
+      setDifficultyLevel(depart.difficulty_level);
+      setDocumentPath(depart.document_path);
     }
   }, [depart]);
 
@@ -83152,8 +83170,12 @@ var EditCourse = function EditCourse(_ref) {
     dispatch(Object(_store_actions_courses__WEBPACK_IMPORTED_MODULE_3__["UpdateCourse"])({
       data: {
         id: depart.id,
+        module_id: module_id,
+        prerequisite: prerequisite,
         name: name,
-        description: description
+        description: description,
+        difficulty_level: difficulty_level,
+        document_path: document_path
       }
     })).then(function () {
       var offset = (currentPage - 1) * 10;
@@ -83211,6 +83233,28 @@ var EditCourse = function EditCourse(_ref) {
     id: "name",
     placeholder: "Enter Departement Name"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "PreRequisites :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: prerequisite,
+    onChange: function onChange(e) {
+      return setPreReq(e.target.value);
+    },
+    type: "text",
+    name: "prereq",
+    id: "prereq",
+    placeholder: "Enter Module Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
+    "for": "name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Difficulty Level :"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: difficulty_level,
+    onChange: function onChange(e) {
+      return setDifficultyLevel(e.target.value);
+    },
+    type: "text",
+    name: "difiiculty",
+    id: "difiiculty",
+    placeholder: "Enter Module Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "exampleSelect"
   }, "Select Module"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     value: module_id,
@@ -83220,10 +83264,7 @@ var EditCourse = function EditCourse(_ref) {
     type: "select",
     name: "module_id",
     id: "exampleSelect"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-    value: "",
-    key: "er"
-  }), modules ? modules.map(function (mod, i) {
+  }, modules ? modules.map(function (mod, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
       value: mod.id,
       key: i
@@ -83234,13 +83275,14 @@ var EditCourse = function EditCourse(_ref) {
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ListGroupItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
     "for": "Description"
   }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    value: description,
     onChange: function onChange(e) {
       return setModuleDescription(e.target.value);
     },
     type: "textarea",
-    name: "text",
+    name: "description",
     id: "description",
-    placeholder: "Enter Module description"
+    placeholder: "Enter Course description"
   }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
@@ -87026,7 +87068,7 @@ var students = function students() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\abdeljalil\project_laravel\udemy.dev\najoualearn\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/abdel/project_ensa/projectnajoualearn/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

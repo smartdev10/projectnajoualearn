@@ -36235,8 +36235,8 @@ d.addEventListener("DOMContentLoaded", function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\abdeljalil\project_laravel\udemy.dev\najoualearn\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\abdeljalil\project_laravel\udemy.dev\najoualearn\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/abdel/project_ensa/projectnajoualearn/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/abdel/project_ensa/projectnajoualearn/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
