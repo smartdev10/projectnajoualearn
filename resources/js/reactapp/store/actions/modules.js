@@ -1,6 +1,7 @@
 import { dataProvider } from "../api";
 import { LOAD_MODULES } from "../actionTypes";
-import {handleTokenErrors} from '../api/errorHandlers'
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
 export const loadModules = modules => ({
   type: LOAD_MODULES,
@@ -34,8 +35,8 @@ export const fetchModules = (params = {
   return dispatch => {
     return dataProvider("GET_LIST", "modules", params).then((res)=>{
       dispatch(loadModules(res))
-    }).catch(err => {
-      handleTokenErrors(err)
+    }).catch(() => {
+      notyf.error('Error while Fetching');
     });
   };
 };

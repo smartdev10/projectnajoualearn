@@ -86,7 +86,7 @@ return [
 
         'students' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Etudiant::class,
+            'model' => App\Models\Student::class,
          ],
 
          'formateurs' => [

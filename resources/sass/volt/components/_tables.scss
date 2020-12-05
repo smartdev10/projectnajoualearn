@@ -8,7 +8,7 @@
       font-size: $table-head-font-size;
       text-transform: $table-head-text-transform;
       font-weight: $font-weight-bolder;
-      border-top: $table-border-width solid $table-border-color;
+      border-top: 0;
   }
 
   th {
@@ -183,7 +183,14 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    
+
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+
+        .dataTable-info {
+            margin-bottom: 1rem;
+        }
+    }
 }
 
 .dataTable-top {

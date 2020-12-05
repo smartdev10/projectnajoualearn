@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 
 @section('content')
 
@@ -7,7 +7,7 @@
 <!-- Section -->
 <section class="vh-lg-100 d-flex align-items-center">
     <div class="container">
-        <div class="row justify-content-center form-bg-image" data-background-lg="../../assets/img/illustrations/signin.svg">
+        <div class="row justify-content-center form-bg-image">
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="signin-inner my-3 my-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                     <div class="text-center text-md-center mb-4 mt-md-0">
@@ -64,6 +64,15 @@
                                     <span class="input-group-text" id="basic-addon5"><span class="fas fa-unlock-alt"></span></span>
                                     <input id="password-confirm" type="password" placeholder="Confirm Password"  name="password_confirmation"  class="form-control" required>
                                 </div>  
+                            </div>
+                            <div class="form-group mb-4">
+                                    <label for="gender">Departement</label>
+                                    <select class="form-select mb-0" id="departement_id" name="departement_id" aria-label="Gender select example">
+                                        <option></option>
+                                        @foreach ($departements as $departement)
+                                        <option value={{$departement->id}}>{{ $departement->name }}</option>
+                                        @endforeach
+                                    </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-block btn-primary"> {{ __('Register') }} </button>

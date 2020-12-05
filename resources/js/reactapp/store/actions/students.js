@@ -10,14 +10,21 @@ export const loadStudents = students => ({
 
 export const CreateStudent = (params) => {
   return () => {
-    return dataProvider("CREATE", "students", params)
+    return dataProvider("CREATE", "students/create", params)
+  };
+};
+
+
+export const UpdateStudent = (params) => {
+  return () => {
+    return dataProvider("UPDATE", "students/create", params)
   };
 };
 
 
 export const DeleteStudent = (params) => {
   return () => {
-    return dataProvider("DELETE_MANY", "students", params)
+    return dataProvider("DELETE_MANY", "students/delete", params)
   };
 };
 

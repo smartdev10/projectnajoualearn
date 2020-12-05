@@ -33,6 +33,13 @@ class FormatiomController extends Controller
        return Formation::all();
    }
 
+   public function formationModules($id)
+   {
+       $formation = Formation::find($id);
+       return response()->json($formation->modules);
+   }
+
+
    // Function Show Contenet
    public function show($id)
    {

@@ -1,12 +1,6 @@
-import { configureStore } from "../index"
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
-const store = configureStore();
-
-export const handleTokenErrors = response => {
-	if (!response.success && response.status !== 200) {
-		if (response.status === 401 && response.data.error.message === "jwt expired") {
-			store.dispatch({ type: 'INVALID_TOKEN' });
-		} 
-	}
-	return response
+export const handleTokenErrors = () => {
+	notyf.error('Error while loading data')
 };

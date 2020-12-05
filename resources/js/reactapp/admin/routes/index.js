@@ -6,10 +6,14 @@ import Formations from "./Formations/index";
 import Modules from "./Modules/index";
 import Courses from "./Cours/index";
 import Annonces from "./Annonces/index";
+import Messages from "./Messages/index";
+import Tickets from "./Tickets/index";
+import Teachers from "./Teachers/index";
 
 const App = ({match}) => {
 
     const location = useLocation()
+    console.log(match.url)
     return (
         <div>
          <div className="py-4">
@@ -33,6 +37,11 @@ const App = ({match}) => {
             <Route path={`${match.url}/courses`} component={Courses}/>
             <Route path={`${match.url}/annonces`} component={Annonces}/>
             <Route path={`${match.url}/students`} component={Students}/>
+            <Route path={`${match.url}/teachers`} component={Teachers}/>
+            <Route path={`${match.url}/students/messages`} component={Messages}/>
+            <Route path={`${match.url}/students/tickets`} component={Tickets}/>
+            <Route path={`${match.url}/teachers/messages`} component={Messages}/>
+            <Route path={`${match.url}/teachers/tickets`} component={Tickets}/>
             <Redirect to={`${match.url}/departements`} />
         </Switch>
     </div>

@@ -16,6 +16,7 @@ class CreateAnnoncesTable extends Migration
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('formation_id')->constrained('formations');
             $table->string('description');
             $table->string('attached_doc');
             $table->string('duration');

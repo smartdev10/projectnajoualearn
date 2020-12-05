@@ -25,4 +25,6 @@ mix.webpackConfig({
  */
 mix.react('resources/js/app.js', 'public/js')
    .react('resources/js/main.js', 'public/js')
+   .react('resources/js/maint.js', 'public/js')
+   .react('resources/js/mains.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')

@@ -48,8 +48,8 @@
                                 <label for="password">Your Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
-                                    <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                    @error('password')
+                                    <input id="student_password" placeholder="Password" type="password" class="form-control @error('student_password') is-invalid @enderror" name="student_password" required autocomplete="new-password">
+                                    @error('student_password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

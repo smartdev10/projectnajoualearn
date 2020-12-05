@@ -18,6 +18,7 @@ import AddFormation from "../../modals/formations/AddFormation";
 import EditFormation from "../../modals/formations/EditFormation";
 import Paginations from "../../partials/pagination";
 import Confirm from "../../modals/Confirm";
+import Swal from 'sweetalert2'
 // core components
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
@@ -42,21 +43,26 @@ const Formations = () => {
 
     const deleteAction = (id) => {
       const offset = (currentPage - 1) * 10;
-      setMessage("Deleting ...")
-      dispatch(DeleteFormation({id})).then(()=>{
-        setMessage("Deleted")
-        notyf.success('Your record have been successfully deleted!');
-        dispatch(fetchFormations({
-          pagination: { page : offset , perPage: offset + 10 },
-          sort: { field: 'name' , order: 'ASC' },
-          filter: {},
-        })).then(()=>{
-          setConfirmModal(false)
-          setMessage("Are you Sure ?!")
-        })
-      }).catch(()=>{
-        notyf.error('Error while Deleting');
-        setMessage("Error While Deleting!")
+      Swal.fire({
+        title: 'Do you want to delete this?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Delete`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          dispatch(DeleteFormation({id})).then(()=>{
+            Swal.fire('Deleted!', '', 'success')
+            dispatch(fetchFormations({
+              pagination: { page : offset , perPage: offset + 10 },
+              sort: { field: 'name' , order: 'ASC' },
+              filter: {},
+            }))
+          }).catch(()=>{
+            notyf.error('Error while Deleting');
+            setMessage("Error While Deleting!")
+          })
+        } 
       })
     }
   
@@ -117,7 +123,7 @@ const Formations = () => {
                   color="danger"
                   onClick={() =>  {
                     setId(dep.id)
-                    setConfirmModal(c => !c )
+                    deleteAction(dep.id)
                   }}
                   >
                   <i className="fas fa-trash-alt mr-2"></i>

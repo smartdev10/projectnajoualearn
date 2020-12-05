@@ -2,6 +2,7 @@ import { dataProvider } from "../api";
 import { LOAD_COURSES } from "../actionTypes";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
+
 export const loadCourses = courses => ({
   type: LOAD_COURSES,
   courses

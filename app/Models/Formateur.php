@@ -15,7 +15,8 @@ class Formateur extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'formateur_password',
+        'departement_id',
+        'password',
     ];
 
     /**
@@ -24,7 +25,7 @@ class Formateur extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'formateur_password',
+        'password',
         'remember_token',
     ];
 

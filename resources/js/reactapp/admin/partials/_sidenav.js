@@ -62,15 +62,15 @@ export default function _sidenav() {
                 <span className="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-app">
                     <span>
                         <span className="sidebar-icon"><span className="fas fa-user"></span></span> 
-                        Formateurs
+                         Formateurs
                         </span>
                     <span className="link-arrow"><span className="fas fa-chevron-right"></span></span> 
                 </span>
-                <div className="multi-level collapse" role="list" id="submenu-app" aria-expanded="false">
+                <div className="multi-level collapse show" role="list" id="submenu-app" aria-expanded="false">
                     <ul className="flex-column nav">
-                        <li className="nav-item"><a className="nav-link" href="/students"><span>List</span></a></li>
-                        <li className="nav-item"><a className="nav-link" href="/messages"><span>Messages</span></a></li>
-                        <li className="nav-item"><a className="nav-link" href="/tickets"><span>Tickets</span></a></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers"><span>List</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/messages"><span>Messages</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/tickets"><span>Tickets</span></Link></li>
                     </ul>
                 </div>
                 </li>
@@ -78,15 +78,15 @@ export default function _sidenav() {
                 <span className="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-pages">
                     <span>
                         <span className="sidebar-icon"><span className="fas fa-users"></span></span> 
-                        Etudiants
+                         Etudiants
                         </span>
                     <span className="link-arrow"><span className="fas fa-chevron-right"></span></span> 
                 </span>
-                <div className="multi-level collapse" role="list" id="submenu-pages" aria-expanded="false">
+                <div className="multi-level collapse show" role="list" id="submenu-pages" aria-expanded="false">
                     <ul className="flex-column nav">
-                        <li className="nav-item"><a className="nav-link" href="/students"><span>List</span></a></li>
-                        <li className="nav-item"><a className="nav-link" href="/messages"><span>Messages</span></a></li>
-                        <li className="nav-item"><a className="nav-link" href="/tickets"><span>Tickets</span></a></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/students"><span>List</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/students/messages"><span>Messages</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/students/tickets"><span>Tickets</span></Link></li>
                     </ul>
                 </div>
                 </li>

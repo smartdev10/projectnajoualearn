@@ -8,6 +8,7 @@ import {
   ListGroup,
   ListGroupItem,
   Label,
+  FormText 
 } from "reactstrap";
 
 import { useDispatch , useSelector } from "react-redux";
@@ -95,7 +96,8 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleSelect">Select Module</Label>
-                <Input defaultValue="" onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
+                <Input defaultValue="" onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="module_id">
+                  <option value={""} key='erd'></option>
                   {
                   modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }
@@ -103,10 +105,20 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
               </FormGroup>
              </ListGroupItem>
              
-             <ListGroupItem>
-             <FormGroup>
+              <ListGroupItem>
+              <FormGroup>
                 <Label for="Description">Description</Label>
                 <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
+              </FormGroup>
+             </ListGroupItem>
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleFile">File</Label>
+                <Input type="file" name="file" id="exampleFile" />
+                <FormText color="muted">
+                  Course File
+                </FormText>
               </FormGroup>
              </ListGroupItem>
           </ListGroup>

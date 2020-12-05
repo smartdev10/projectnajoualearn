@@ -1,6 +1,7 @@
 import { dataProvider } from "../api";
 import { LOAD_FORMATEURS } from "../actionTypes";
-import {handleTokenErrors} from '../api/errorHandlers'
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
 
 export const loadFormateurs = formateurs => ({
@@ -9,14 +10,20 @@ export const loadFormateurs = formateurs => ({
 });
 
 export const CreateFormateur = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("CREATE", "formateurs", params)
+  };
+};
+
+export const UpdateFormateur = (params) => {
+  return () => {
+    return dataProvider("UPDATE", "formateurs", params)
   };
 };
 
 
 export const DeleteFormateur = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("DELETE", "formateurs", params)
   };
 };
@@ -26,18 +33,19 @@ export const fetchFormateurs = (params = {
   sort: { field: 'name' , order: 'ASC' },
   filter: {},
 }) => {
-  return dispatch => {
-    return dataProvider("GET_LIST", "formateurs", params).then((res)=>{
-      dispatch(loadFormateurs(res))
-    }).catch(err => {
-      handleTokenErrors(err)
-    });
+  return async dispatch => {
+    try {
+      const res = await dataProvider("GET_LIST", "formateurs", params);
+      dispatch(loadFormateurs(res));
+    } catch (e) {
+      notyf.error('Error While fetching');
+    }
   };
 };
 
 
 export const fetchOneFormateur = (params) => {
-  return dispatch => {
+  return () => {
     return dataProvider("GET_ONE", "formateurs", params)
   };
 };

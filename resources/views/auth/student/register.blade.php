@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 
 @section('content')
 
@@ -64,6 +64,15 @@
                                     <span class="input-group-text" id="basic-addon5"><span class="fas fa-unlock-alt"></span></span>
                                     <input id="password-confirm" type="password" placeholder="Confirm Password"  name="password_confirmation"  class="form-control" required>
                                 </div>  
+                            </div>
+                            <div class="form-group mb-4">
+                                    <label for="gender">Formation</label>
+                                    <select class="form-select w-100 mb-0" id="gender" aria-label="Gender select example">
+                                        <option selected></option>
+                                        @foreach ($formations as $formation)
+                                        <option value={{$formation->id}}>{{ $formation->name }}</option>
+                                        @endforeach
+                                    </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-block btn-primary"> {{ __('Register') }} </button>

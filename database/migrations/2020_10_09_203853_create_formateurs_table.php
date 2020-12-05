@@ -17,9 +17,9 @@ class CreateFormateursTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignId('departement_id')->constrained('formations');
+            $table->foreignId('departement_id')->constrained('departements');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('formateur_password');
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

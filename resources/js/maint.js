@@ -1,0 +1,1 @@
+require('./reactapp/teacher/index');

@@ -1,12 +1,20 @@
 import { dataProvider } from "../api";
 import { LOAD_ANNONCES } from "../actionTypes";
-import {handleTokenErrors} from '../api/errorHandlers'
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
 
 export const loadAnnonces = annonces => ({
   type: LOAD_ANNONCES,
   annonces
 });
+
+
+export const UpdateAnnonce = (params) => {
+  return () => {
+    return dataProvider("UPDATE", "annonces/update", params)
+  };
+};
 
 export const CreateAnnonces = (params) => {
   return () => {
@@ -28,8 +36,8 @@ export const fetchAnnonces = (params = {
   return dispatch => {
     return dataProvider("GET_LIST", "annonces", params).then((res)=>{
       dispatch(loadAnnonces(res))
-    }).catch(err => {
-      handleTokenErrors(err)
+    }).catch(() => {
+      notyf.error('Error while Fetching');
     });
   };
 };

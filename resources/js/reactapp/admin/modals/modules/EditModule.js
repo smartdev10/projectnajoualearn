@@ -88,7 +88,7 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
               <FormGroup>
                 <Label for="exampleSelect">Select Formation</Label>
                 <Input value={formation_id} onChange={(e)=> setFormationId(e.target.value) } type="select" name="module_id" id="exampleSelect">
-                  <option value={""} key='er'></option>
+                  <option value={""} key='erd'></option>
                   {
                   formations ? formations.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }

@@ -29,8 +29,8 @@ export const fetchTickets = (params = {
   return dispatch => {
     return dataProvider("GET_LIST", "tickets", params).then((res)=>{
       dispatch(loadTickets(res))
-    }).catch(err => {
-      handleTokenErrors(err)
+    }).catch(() => {
+      handleTokenErrors()
     });
   };
 };

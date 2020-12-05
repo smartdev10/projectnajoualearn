@@ -24,6 +24,18 @@ Route::prefix('admin')->group(function () {
     })->where('any', '.*')->middleware('auth');
 });
 
+Route::prefix('app/teacher')->group(function () {
+    Route::get('{any?}', function () {
+        return view('teacher');
+    })->where('any', '.*')->middleware('auth');
+});
+
+Route::prefix('app/student')->group(function () {
+    Route::get('{any?}', function () {
+        return view('student');
+    })->where('any', '.*')->middleware('auth');
+});
+
 
 Route::prefix('teacher')
     ->as('teacher.')
@@ -77,6 +89,7 @@ Route::prefix('api/departements')->group(function () {
 Route::prefix('api/formations')->group(function () {
     Route::get('', [App\Http\Controllers\FormatiomController::class, 'formations']);
     Route::get('show/{id}', [App\Http\Controllers\FormatiomController::class, 'show']);
+    Route::get('showmodules/{id}', [App\Http\Controllers\FormatiomController::class, 'formationModules']);
     Route::post('create', [App\Http\Controllers\FormatiomController::class, 'creat_formation']);
     Route::put('update/{id}', [App\Http\Controllers\FormatiomController::class, 'edit']);
     Route::delete('delete/{id}', [App\Http\Controllers\FormatiomController::class, 'destroy']);
@@ -100,6 +113,36 @@ Route::prefix('api/courses')->group(function () {
     Route::put('update/{id}', [App\Http\Controllers\CoursesController::class, 'edit']);
     Route::delete('delete/{id}', [App\Http\Controllers\CoursesController::class, 'destroy']);
 });
+
+// Annonces
+
+Route::prefix('api/annonces')->group(function () {
+    Route::get('', [App\Http\Controllers\AnnoncesController::class, 'annonces']);
+    Route::get('show/{id}', [App\Http\Controllers\AnnoncesController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\AnnoncesController::class, 'create']);
+    Route::put('update/{id}', [App\Http\Controllers\AnnoncesController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\AnnoncesController::class, 'destroy']);
+});
+
+
+Route::prefix('api/students')->group(function () {
+    Route::get('', [App\Http\Controllers\StudentsController::class, 'users']);
+    Route::get('show/{id}', [App\Http\Controllers\StudentsController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\StudentsController::class, 'create']);
+    Route::put('update/{id}', [App\Http\Controllers\StudentsController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\StudentsController::class, 'destroy']);
+});
+
+Route::prefix('api/formateurs')->group(function () {
+    Route::get('', [App\Http\Controllers\TeachersController::class, 'teachers']);
+    Route::get('show/{id}', [App\Http\Controllers\TeachersController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\TeachersController::class, 'create']);
+    Route::put('update/{id}', [App\Http\Controllers\TeachersController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\TeachersController::class, 'destroy']);
+});
+
+
+
 
 
 

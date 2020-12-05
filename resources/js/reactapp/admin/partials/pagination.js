@@ -95,12 +95,12 @@ function Paginations({ onPageChanged , totalRecords , pageLimit = 10 , pageNeigh
   if (totalPages === 1) return null;
 
   const pages = fetchPageNumbers();
-  const headerClass = [
-    "text-dark py-2 pr-4 m-0",
-    currentPage ? "border-gray" : ""
-  ]
-    .join(" ")
-    .trim();
+  // const headerClass = [
+  //   "text-dark py-2 pr-4 m-0",
+  //   currentPage ? "border-gray" : ""
+  // ]
+  //   .join(" ")
+  //   .trim();
   return (
       <nav aria-label="...">
       <Pagination
@@ -150,10 +150,6 @@ function Paginations({ onPageChanged , totalRecords , pageLimit = 10 , pageNeigh
             })}
       </Pagination>
       <div className="d-inline">
-         <h2 className={headerClass}>
-            <strong>{totalRecords}</strong>{" "}
-            total records
-          </h2>
           {currentPage && (
             <span className="current-page">
               Page <span className="font-weight-bold">{currentPage}</span> /{" "}

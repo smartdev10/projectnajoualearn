@@ -1,6 +1,7 @@
 import { dataProvider } from "../api";
 import { LOAD_DEPARTEMENT } from "../actionTypes";
-import {handleTokenErrors} from '../api/errorHandlers'
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
 export const loadDepartements = departements => ({
   type: LOAD_DEPARTEMENT,
@@ -36,7 +37,7 @@ export const fetchDepartement = (params = {
       const res = await dataProvider("GET_LIST", "departements", params);
       dispatch(loadDepartements(res));
     } catch (err) {
-      handleTokenErrors(err);
+      notyf.error('Error While fetching')
     }
   };
 };
