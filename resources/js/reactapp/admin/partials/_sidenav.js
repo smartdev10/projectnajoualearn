@@ -61,16 +61,16 @@ export default function _sidenav() {
                 <li className="nav-item">
                 <span className="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-app">
                     <span>
-                        <span className="sidebar-icon"><span className="fas fa-user"></span></span> 
+                        <span className="sidebar-icon"><i className="fas fa-chalkboard-teacher"></i></span> 
                          Formateurs
                         </span>
                     <span className="link-arrow"><span className="fas fa-chevron-right"></span></span> 
                 </span>
                 <div className="multi-level collapse show" role="list" id="submenu-app" aria-expanded="false">
                     <ul className="flex-column nav">
-                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers"><span>List</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/messages"><span>Messages</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/tickets"><span>Tickets</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers"><span><i className="fas fa-list"></i> List</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/messages"><span><i className="fas fa-inbox"></i> Messages</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/tickets"><span><i className="fas fa-ticket-alt"></i> Tickets</span></Link></li>
                     </ul>
                 </div>
                 </li>
@@ -84,9 +84,9 @@ export default function _sidenav() {
                 </span>
                 <div className="multi-level collapse show" role="list" id="submenu-pages" aria-expanded="false">
                     <ul className="flex-column nav">
-                        <li className="nav-item"><Link className="nav-link" to="/admin/students"><span>List</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/students/messages"><span>Messages</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/students/tickets"><span>Tickets</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/students"><span><i className="fas fa-list"></i> List</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/students/messages"><span> <i className="fas fa-inbox"></i> Messages</span></Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/admin/students/tickets"><span><i className="fas fa-ticket-alt"></i> Tickets</span></Link></li>
                     </ul>
                 </div>
                 </li>

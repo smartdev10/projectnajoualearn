@@ -24,16 +24,16 @@ Route::prefix('admin')->group(function () {
     })->where('any', '.*')->middleware('auth');
 });
 
-Route::prefix('app/teacher')->group(function () {
+Route::prefix('/app/teacher')->group(function () {
     Route::get('{any?}', function () {
         return view('teacher');
-    })->where('any', '.*')->middleware('auth');
+    })->where('any', '.*')->middleware('formateur');
 });
 
-Route::prefix('app/student')->group(function () {
+Route::prefix('/app/student')->group(function () {
     Route::get('{any?}', function () {
         return view('student');
-    })->where('any', '.*')->middleware('auth');
+    })->where('any', '.*')->middleware('student');
 });
 
 
@@ -41,26 +41,22 @@ Route::prefix('teacher')
     ->as('teacher.')
     ->group(function() {
         Route::get('home',  [App\Http\Controllers\Home\TeacherHomeController::class ,'index'])->name('home');
-        Route::namespace('Auth\Login')->group(function() {
-            Route::get('login', [App\Http\Controllers\Auth\Login\TeacherController::class , 'showLoginForm'])->name('login');
-            Route::get('register', [App\Http\Controllers\Auth\Login\TeacherController::class , 'showRegisterForm'])->name('register');
-            Route::post('register', [App\Http\Controllers\Auth\Login\TeacherController::class , 'register'])->name('register');
-            Route::post('login', [App\Http\Controllers\Auth\Login\TeacherController::class ,'login'])->name('login');
-            Route::post('logout',  [App\Http\Controllers\Auth\Login\TeacherController::class ,'logout'])->name('logout');
-      });
+        Route::get('login', [App\Http\Controllers\Auth\Login\TeacherController::class , 'showLoginForm'])->name('teacher-login');
+        Route::get('register', [App\Http\Controllers\Auth\Login\TeacherController::class , 'showRegisterForm'])->name('teacher-register');
+        Route::post('register', [App\Http\Controllers\Auth\Login\TeacherController::class , 'register'])->name('register');
+        Route::post('login', [App\Http\Controllers\Auth\Login\TeacherController::class ,'login'])->name('login');
+        Route::post('logout',  [App\Http\Controllers\Auth\Login\TeacherController::class ,'logout'])->name('logout');
  });
 
  Route::prefix('student')
     ->as('student.')
     ->group(function() {
         Route::get('home',  [App\Http\Controllers\Home\StudentHomeController::class ,'index'])->name('home');
-        Route::namespace('Auth\Login')->group(function() {
-            Route::get('login', [App\Http\Controllers\Auth\Login\StudentController::class , 'showLoginForm'])->name('login');
-            Route::get('register', [App\Http\Controllers\Auth\Login\StudentController::class , 'showRegisterForm'])->name('register');
-            Route::post('register', [App\Http\Controllers\Auth\Login\StudentController::class , 'register'])->name('register');
-            Route::post('login', [App\Http\Controllers\Auth\Login\StudentController::class ,'login'])->name('login');
-            Route::post('logout',  [App\Http\Controllers\Auth\Login\StudentController::class ,'logout'])->name('logout');
-      });
+        Route::get('login', [App\Http\Controllers\Auth\Login\StudentController::class , 'showLoginForm'])->name('student-login');
+        Route::get('register', [App\Http\Controllers\Auth\Login\StudentController::class , 'showRegisterForm'])->name('student-register');
+        Route::post('register', [App\Http\Controllers\Auth\Login\StudentController::class , 'register'])->name('register');
+        Route::post('login', [App\Http\Controllers\Auth\Login\StudentController::class ,'login'])->name('login');
+        Route::post('logout',  [App\Http\Controllers\Auth\Login\StudentController::class ,'logout'])->name('logout');
  });
 
 
@@ -70,6 +66,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => 'auth', 'prefix' => 'auth'], function ($router) {
     Route::post('me', [App\Http\Controllers\AuthController::class, 'me']);
+});
+
+Route::group(['middleware' => 'formateur', 'prefix' => 'teacher'], function ($router) {
+    Route::post('me', [App\Http\Controllers\Auth\Login\TeacherController::class, 'me']);
+});
+
+Route::group(['middleware' => 'student', 'prefix' => 'student'], function ($router) {
+    Route::post('me', [App\Http\Controllers\Auth\Login\StudentController::class, 'me']);
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'api/departements'], function ($router) {
@@ -137,9 +141,21 @@ Route::prefix('api/formateurs')->group(function () {
     Route::get('', [App\Http\Controllers\TeachersController::class, 'teachers']);
     Route::get('show/{id}', [App\Http\Controllers\TeachersController::class, 'show']);
     Route::post('create', [App\Http\Controllers\TeachersController::class, 'create']);
-    Route::put('update/{id}', [App\Http\Controllers\TeachersController::class, 'edit']);
+    Route::put('{id}', [App\Http\Controllers\TeachersController::class, 'edit']);
     Route::delete('delete/{id}', [App\Http\Controllers\TeachersController::class, 'destroy']);
 });
+
+
+Route::prefix('api/messages')->group(function () {
+    Route::get('{id}', [App\Http\Controllers\StudenMessagesController::class, 'messages']);
+    Route::get('show/{id}', [App\Http\Controllers\StudenMessagesController::class, 'show']);
+    Route::post('create', [App\Http\Controllers\StudenMessagesController::class, 'create']);
+    Route::put('{id}', [App\Http\Controllers\StudenMessagesController::class, 'edit']);
+    Route::delete('delete/{id}', [App\Http\Controllers\StudenMessagesController::class, 'destroy']);
+});
+
+
+
 
 
 

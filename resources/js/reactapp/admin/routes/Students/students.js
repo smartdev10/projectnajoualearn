@@ -1,7 +1,7 @@
 import React , { useEffect , useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchModules , DeleteModule } from "../../../store/actions/modules";
-
+import { fetchStudents , DeleteStudent , UpdateStudent } from "../../../store/actions/students";
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 // reactstrap components
 import {
   Card,
@@ -14,15 +14,15 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import AddModule from "../../modals/modules/AddModule";
-import EditModule from "../../modals/modules/EditModule";
+import AddStudent from "../../modals/students/AddStudent";
+import EditStudent from "../../modals/students/EditStudent";
 import Paginations from "../../partials/pagination";
 import Confirm from "../../modals/Confirm";
 // core components
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
 
-const Modules = () => {
+const Students = () => {
  
     const [addModal, setToggleAddModal] = useState(false)
     const [editModal, setToggleEditModal] = useState(false)
@@ -31,22 +31,22 @@ const Modules = () => {
     const [currentPage , setCurrentPage] = useState(1)
     const [message, setMessage] = useState("Are you Sure ?!")
     const [depart, setDeprt] = useState({})
-    const modules = useSelector(state => state.modules)
+    const students = useSelector(state => state.students)
     const dispatch = useDispatch()
 
     const totalDepart = 11
     useEffect(() => {
-      dispatch(fetchModules())
+      dispatch(fetchStudents())
     }, [dispatch]);
 
 
     const deleteAction = (id) => {
       const offset = (currentPage - 1) * 10;
       setMessage("Deleting ...")
-      dispatch(DeleteModule({id})).then(()=>{
+      dispatch(DeleteStudent({id})).then(()=>{
         setMessage("Deleted")
         notyf.success('Your record have been successfully deleted!');
-        dispatch(fetchModules({
+        dispatch(fetchStudents({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
@@ -64,7 +64,7 @@ const Modules = () => {
       const currentPage = Math.max(0, Math.min(page, totalPages));
   
       const offset = (currentPage - 1) * 10;
-      dispatch(fetchModules({
+      dispatch(fetchStudents({
         pagination: { page : offset , perPage: 10 },
         sort: { field: 'name' , order: 'ASC' },
         filter: {},
@@ -72,8 +72,8 @@ const Modules = () => {
       setCurrentPage(currentPage)
     }
 
-    const renderModules = () => {
-      if(modules === null){
+    const render = () => {
+      if(students === null){
         return (
           <tr className="mb-0">
             <td className="text-center">
@@ -81,14 +81,14 @@ const Modules = () => {
             </td>    
           </tr>
          ) 
-      }else if(modules.length === 0){
+      }else if(students.length === 0){
            <tr className="mb-0"> 
             <td className="">
               No data Available
             </td>    
           </tr>
       }else{
-        return modules.map((dep) => {
+        return students.map((dep) => {
           return (
             <tr  key={dep.id}>
                <th className="align-middle" scope="row">
@@ -96,6 +96,32 @@ const Modules = () => {
                    { dep.name}
                   </span>
                </th>
+               <td>
+              <BootstrapSwitchButton
+                checked={dep.active}
+                onlabel='Active'
+                onstyle='success'
+                offlabel='Inactive'
+                offstyle='info'
+                size="sm"
+                width={150}
+                onChange={(checked) => {
+                  dispatch(UpdateStudent({data:{id:dep.id,active:checked}}))
+                  .then(() => {
+                    const offset = (currentPage - 1) * 10;
+                    dispatch(fetchStudents({
+                      pagination: { page : offset , perPage: offset + 10 },
+                      sort: { field: 'name' , order: 'ASC' },
+                      filter: {},
+                    }))
+                    notyf.success('Your record have been successfully saved!');
+                  })
+                  .catch(()=> {
+                    setMessage("Data Saved")
+                    notyf.error('Error while Adding');
+                  })
+              }}/>
+              </td>
             <td className="align-middle">
               <div className="d-flex align-items-center">
                 <div className="ml-2">
@@ -135,24 +161,11 @@ const Modules = () => {
     return (
       <>
         {/* Page content */}
-        {addModal &&  <AddModule open={addModal} toggleAddModal={setToggleAddModal}/>}
-        {editModal &&  <EditModule depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
+        {addModal &&  <AddStudent open={addModal} toggleAddModal={setToggleAddModal}/>}
+        {editModal &&  <EditStudent depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
         {confirm &&  <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />}
         <Container  className="mt--7" fluid>
           {/* Table */}
-          <Row>
-            <div className="mr-3">
-              <Button
-                className="mb-3"
-                type="button"
-                onClick={() => {
-                  setToggleAddModal(true) 
-                }}>
-                  <i className="mr-2 fas fa-plus"></i>
-                 Add Module
-              </Button>
-            </div>
-          </Row>
           <Row>
             <div className="col">
               <Card className="shadow">
@@ -165,11 +178,12 @@ const Modules = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">name</th>
+                      <th scope="col">change status</th>
                       <th scope="col">actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                     {renderModules()}
+                     {render()}
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
@@ -185,4 +199,4 @@ const Modules = () => {
 }
 
 
-export default Modules
+export default Students

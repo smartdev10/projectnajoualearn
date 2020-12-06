@@ -28,6 +28,9 @@ class CreateFormationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fomations');
+        Schema::dropIfExists('students');
+        Schema::dropIfExists('modules');
+        Schema::drop('formations');
+
     }
 }

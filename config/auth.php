@@ -38,13 +38,13 @@ return [
     'guards' => [
 
         'student' => [
-            'redirectTo' => 'student.home',
+            'redirectTo' => 'student',
             'driver' => 'session',
             'provider' => 'students',
         ],
 
         'formateur' => [
-            'redirectTo' => 'formateur.home',
+            'redirectTo' => 'teacher',
             'driver' => 'session',
             'provider' => 'formateurs',
         ],

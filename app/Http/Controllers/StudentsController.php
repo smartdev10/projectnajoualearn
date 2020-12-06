@@ -39,9 +39,7 @@ class StudentsController extends Controller
 
    // fUNCTION UPDATE 
    public function edit(Request $request , $id){
-      $departement = Student::find($id);
-      $departement->name = $request->name;
-      $departement->save();
+      Student::where('id', $id)->update($request->all());
       return response()->json(['message'=>'saved']);
 
    }
@@ -49,7 +47,7 @@ class StudentsController extends Controller
    // FUNCTION DELET 
    public function destroy($id){
 
-       $departement = Etudiant::find($id);
+       $departement = Student::find($id);
        $departement->delete();
        return response()->json(['message'=>'created']);
     

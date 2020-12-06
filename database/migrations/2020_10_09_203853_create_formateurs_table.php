@@ -20,6 +20,7 @@ class CreateFormateursTable extends Migration
             $table->foreignId('departement_id')->constrained('departements');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('active')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

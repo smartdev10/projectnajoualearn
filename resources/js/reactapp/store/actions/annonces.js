@@ -24,7 +24,7 @@ export const CreateAnnonces = (params) => {
 
 export const DeleteAnnonces = (params) => {
   return () => {
-    return dataProvider("DELETE_MANY", "annonces/delete", params)
+    return dataProvider("DELETE", "annonces/delete", params)
   };
 };
 

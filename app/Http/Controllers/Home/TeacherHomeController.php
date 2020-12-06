@@ -7,7 +7,7 @@ class TeacherHomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:formateur');
+        $this->middleware('formateur');
     }
     public function index()
     {

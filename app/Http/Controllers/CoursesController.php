@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cours;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CoursesController extends Controller
@@ -17,18 +18,18 @@ class CoursesController extends Controller
             'description' => 'required',
             'prerequisite' => 'required',
             'difficulty_level' => 'required',
-            'document_path' => 'required',
          ]);
          if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 404);
          }
+         $path = $request->file('file')->storePublicly('files');
          $course = Cours::create([
             'name' => $request->get('name'),
             'module_id' => $request->get('module_id'),
             'description' => $request->get('description'),
             'prerequisite' => $request->get('prerequisite'),
             'difficulty_level' => $request->get('difficulty_level'),
-            'document_path' => $request->get('document_path'),
+            'document_path' => $path,
          ]);
          $course->save(); 
          return response()->json(['message'=>'created']);
@@ -62,6 +63,7 @@ class CoursesController extends Controller
     public function destroy($id){
 
         $course = Cours::find($id);
+        Storage::delete($course->document_path);
         $course->delete();
         return response()->json(['message'=>'created']);
      

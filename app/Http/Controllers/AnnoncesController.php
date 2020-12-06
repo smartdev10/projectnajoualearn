@@ -4,29 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Annonce;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AnnoncesController extends Controller
 {
 
-    public function  create(Request $request){
+     public function create(Request $request){
 
          $validator = Validator::make($request->all(), [
             'name' => 'required',
             'formation_id' => 'required',
             'description' => 'required',
-            'attached_doc' => 'required',
-            'duration' => 'required',
          ]);
          if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 404);
+            return response()->json(['error'=>$validator->errors()], 400);
          }
+         $path = $request->file('file')->storePublicly('annonces');
          $course = Annonce::create([
             'name' => $request->get('name'),
             'formation_id' => $request->get('formation_id'),
             'description' => $request->get('description'),
-            'attached_doc' => $request->get('attached_doc'),
-            'duration' => $request->get('duration'),
+            'attached_doc' => $path,
+            'duration' => "1 DAY",
          ]);
          $course->save(); 
          return response()->json(['message'=>'created']);
@@ -59,6 +59,7 @@ class AnnoncesController extends Controller
     public function destroy($id){
 
         $course = Annonce::find($id);
+        Storage::delete($course->attached_doc);
         $course->delete();
         return response()->json(['message'=>'created']);
      

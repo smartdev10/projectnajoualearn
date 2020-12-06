@@ -6,6 +6,7 @@ import { formateurs } from "./formateurs";
 import { annonces } from "./annonces";
 import { loading } from "./isloading";
 import { modules } from "./modules";
+import { messages } from "./messages";
 import { courses } from "./courses"
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   formateurs,
   annonces,
   modules,
+  messages,
   loading,
   courses,
 });

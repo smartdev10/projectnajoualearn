@@ -8,7 +8,7 @@ const App = () => {
   const location = useLocation();
   return (
     <Switch>
-        <Route path={`/teacher${match.url}`} location={location}  component={MainApp}/>
+        <Route path={`/app/teacher${match.url}`} location={location}  component={MainApp}/>
     </Switch>
   )
 };

@@ -20,7 +20,7 @@ const notyf = new Notyf();
 const EditStudent = ({ setMessage , toggleEditModal , open  , currentPage , className , depart }) => {
    
   const [name, setModuleName] = useState("")
-  const [description, setModuleDescription] = useState("")
+  const [email, setEmail] = useState("")
   const [formation_id, setFormationId] = useState(0)
   const formations = useSelector(state => state.formations)
 
@@ -31,12 +31,12 @@ const EditStudent = ({ setMessage , toggleEditModal , open  , currentPage , clas
     if(Object.keys(depart).length !== 0){
       setModuleName(depart.name)
       setFormationId(depart.formation_id)
-      setModuleDescription(depart.description)
+      setEmail(depart.email)
     }
   }, [depart])
 
   const saveModule = () => {
-      dispatch(UpdateStudent({data:{id:depart.id,name,description,formation_id}}))
+      dispatch(UpdateStudent({data:{id:depart.id,name,email,formation_id}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchStudents({
@@ -79,8 +79,15 @@ const EditStudent = ({ setMessage , toggleEditModal , open  , currentPage , clas
         <ListGroup>
             <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>Module Name :</strong> </Label>
+                <Label for="name"><strong>Student Name :</strong> </Label>
                 <Input value={name} onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
+              </FormGroup>
+             </ListGroupItem>
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="email"><strong>Student Email :</strong> </Label>
+                <Input value={email} onChange={(e)=>  setEmail(e.target.value) }  type="text" name="email" id="email" placeholder="Enter Departement Name" />
               </FormGroup>
              </ListGroupItem>
          
@@ -96,12 +103,6 @@ const EditStudent = ({ setMessage , toggleEditModal , open  , currentPage , clas
               </FormGroup>
              </ListGroupItem>
 
-             <ListGroupItem>
-             <FormGroup>
-                <Label for="Description">Description</Label>
-                <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
-              </FormGroup>
-             </ListGroupItem>
           </ListGroup>
         </div>
         <div className="modal-footer">

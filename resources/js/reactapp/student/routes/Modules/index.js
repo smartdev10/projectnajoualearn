@@ -1,6 +1,6 @@
 import React , { useEffect , useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchModules , DeleteModule } from "../../../store/actions/modules";
+import { fetchModules  } from "../../../store/actions/modules";
 
 // reactstrap components
 import {
@@ -14,23 +14,15 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import AddModule from "../../modals/modules/AddModule";
-import EditModule from "../../modals/modules/EditModule";
 import Paginations from "../../partials/pagination";
-import Confirm from "../../modals/Confirm";
-// core components
-import { Notyf } from 'notyf';
-const notyf = new Notyf();
+import ShowCourses from "../../modals/modules/ShowModuleCourses";
+
 
 const Modules = () => {
  
-    const [addModal, setToggleAddModal] = useState(false)
-    const [editModal, setToggleEditModal] = useState(false)
-    const [confirm, setConfirmModal] = useState(false)
+
     const [id, setId] = useState(null)
     const [currentPage , setCurrentPage] = useState(1)
-    const [message, setMessage] = useState("Are you Sure ?!")
-    const [depart, setDeprt] = useState({})
     const modules = useSelector(state => state.modules)
     const dispatch = useDispatch()
 
@@ -40,25 +32,6 @@ const Modules = () => {
     }, [dispatch]);
 
 
-    const deleteAction = (id) => {
-      const offset = (currentPage - 1) * 10;
-      setMessage("Deleting ...")
-      dispatch(DeleteModule({id})).then(()=>{
-        setMessage("Deleted")
-        notyf.success('Your record have been successfully deleted!');
-        dispatch(fetchModules({
-          pagination: { page : offset , perPage: offset + 10 },
-          sort: { field: 'name' , order: 'ASC' },
-          filter: {},
-        })).then(()=>{
-          setConfirmModal(false)
-          setMessage("Are you Sure ?!")
-        })
-      }).catch(()=>{
-        notyf.error('Error while Deleting');
-        setMessage("Error While Deleting!")
-      })
-    }
   
     const onPageChanged = (page , totalPages)=>{
       const currentPage = Math.max(0, Math.min(page, totalPages));
@@ -101,27 +74,13 @@ const Modules = () => {
                 <div className="ml-2">
                   <Button
                   type="button"
-                  color="primary"
-                  onClick={() =>  {
-                    setDeprt(dep)
-                    setToggleEditModal(true) 
-                  }}
-                  >
-                  <i className="fas fa-edit mr-2"></i>
-                  edit
-                  </Button>
-                </div>
-                <div className="ml-2">
-                  <Button
-                  type="button"
-                  color="danger"
+                  color="info"
                   onClick={() =>  {
                     setId(dep.id)
-                    setConfirmModal(c => !c )
                   }}
                   >
-                  <i className="fas fa-trash-alt mr-2"></i>
-                  delete
+                  <i className="fas fa-eye mr-2"></i>
+                  Show Courses
                   </Button>
                 </div>
               </div>
@@ -135,24 +94,9 @@ const Modules = () => {
     return (
       <>
         {/* Page content */}
-        {addModal &&  <AddModule open={addModal} toggleAddModal={setToggleAddModal}/>}
-        {editModal &&  <EditModule depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
-        {confirm &&  <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />}
+        <ShowCourses id={id} />
         <Container  className="mt--7" fluid>
           {/* Table */}
-          <Row>
-            <div className="mr-3">
-              <Button
-                className="mb-3"
-                type="button"
-                onClick={() => {
-                  setToggleAddModal(true) 
-                }}>
-                  <i className="mr-2 fas fa-plus"></i>
-                 Add Module
-              </Button>
-            </div>
-          </Row>
           <Row>
             <div className="col">
               <Card className="shadow">

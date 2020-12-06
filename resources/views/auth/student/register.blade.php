@@ -1,4 +1,4 @@
-@extends('layouts.teacher')
+@extends('layouts.student')
 
 @section('content')
 
@@ -13,7 +13,7 @@
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h3">Create an account</h1>
                     </div>
-                    <form method="POST" action="{{ route('teacher.register') }}">
+                    <form method="POST" action="{{ route('student.register') }}">
                         @csrf
                         <!-- Form -->
                         <div class="form-group mb-4">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group mb-4">
                                     <label for="gender">Formation</label>
-                                    <select class="form-select w-100 mb-0" id="gender" aria-label="Gender select example">
+                                    <select name="formation_id" class="form-select w-100 mb-0" id="formation_id" aria-label="Formation select example">
                                         <option selected></option>
                                         @foreach ($formations as $formation)
                                         <option value={{$formation->id}}>{{ $formation->name }}</option>

@@ -8,7 +8,7 @@ class StudentHomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:student');
+        $this->middleware('student');
     }
     public function index()
     {

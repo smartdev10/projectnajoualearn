@@ -16,7 +16,7 @@ class TeacherController extends Controller
 
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/teacher/home';
+    protected $redirectTo = '/app/teacher';
     public function __construct()
     {
         $this->middleware('guest:formateur')->except('logout');
@@ -32,14 +32,26 @@ class TeacherController extends Controller
             'email'   => 'required|email',
             'password' => 'required|min:6'
         ]);
-
         if ($this->guard()->attempt($this->credentials($request))){
-            return redirect()->intended('/teacher/home');
+            return redirect('/app/teacher');
         }
         return back()->withInput($request->only('email', 'remember'));
     }
 
+    public function me() {
 
+        $reposne = ['result' => false];
+        dd($this->guard()->user());
+        $user = $this->guard()->user();
+        if ($user) {
+            $reposne['result'] = true;
+            $reposne['user'] = $user;
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return response()->json($reposne);
+    }
 
     public function register(Request $request)
     {
@@ -59,6 +71,10 @@ class TeacherController extends Controller
     }
     public function unsername(){
         return 'email';
+    }
+
+    public function logout(){
+        return $this->guard()->logout();
     }
 
     protected function guard()

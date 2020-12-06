@@ -10,7 +10,7 @@ const store = configureStore();
 import 'notyf/notyf.min.css';
 
 const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-axios.post('/auth/me', {
+axios.post('/auth/teacher/me', {
    headers: {
      'X-CSRF-TOKEN': csrf_token,
      'Content-Type': 'application/json',

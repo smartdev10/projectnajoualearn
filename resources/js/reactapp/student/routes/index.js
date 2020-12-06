@@ -1,8 +1,7 @@
 import React from "react";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import Modules from "./Modules/index";
-import Courses from "./Cours/index";
-import Annonces from "./Annonces/index";
+import Messages from "./Messages/index";
 
 const App = ({match}) => {
 
@@ -25,8 +24,7 @@ const App = ({match}) => {
         </div>
         <Switch>
             <Route path={`${match.url}/modules`} component={Modules}/>
-            <Route path={`${match.url}/courses`} component={Courses}/>
-            <Route path={`${match.url}/annonces`} component={Annonces}/>
+            <Route path={`${match.url}/messages`} component={Messages}/>
             <Redirect to={`${match.url}/modules`} />
         </Switch>
     </div>

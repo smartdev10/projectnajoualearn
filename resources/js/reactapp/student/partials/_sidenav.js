@@ -23,33 +23,27 @@ export default function _sidenav() {
             </div>
             <ul className="nav flex-column">
                <li className="nav-item">
-                <Link to="/student/home" className="nav-link">
+                <Link to="/app/student/home" className="nav-link">
                     <span className="sidebar-icon"><i className="fas fa-home"></i></span>
                     <span>Home</span>
                 </Link>
                 </li>
                 <li className="nav-item">
-                <Link to="/student/modules" className="nav-link">
+                <Link to="/app/student/modules" className="nav-link">
                     <span className="sidebar-icon"><span className="fas fa-briefcase"></span></span>
                     <span>Modules</span>
                 </Link>
                 </li>
-                <li className="nav-item">
-                <Link to="/student/annonces" className="nav-link">
+                {/* <li className="nav-item">
+                <Link to="/app/student/annonces" className="nav-link">
                     <span className="sidebar-icon"><i className="fas fa-bullhorn"></i></span>
                     <span>Annonces</span>
                 </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
-                <Link to="/student/messages" className="nav-link">
-                    <span className="sidebar-icon"><i className="fas fa-bullhorn"></i></span>
-                    <span>Messages</span>
-                </Link>
-                </li>
-                <li className="nav-item">
-                <Link to="/student/tickets" className="nav-link">
-                    <span className="sidebar-icon"><i className="fas fa-bullhorn"></i></span>
-                    <span>Tickets</span>
+                <Link to="/app/student/messages" className="nav-link">
+                    <span className="sidebar-icon"><i className="fas fa-inbox"></i></span>
+                    <span> Messages</span>
                 </Link>
                 </li>
             </ul>

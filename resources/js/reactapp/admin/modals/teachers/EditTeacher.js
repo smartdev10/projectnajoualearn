@@ -12,7 +12,7 @@ import {
 
 import { useDispatch , useSelector } from "react-redux";
 import { UpdateModule , fetchModules } from "../../../store/actions/modules";
-import { fetchFormations } from "../../../store/actions/formations";
+import { fetchDepartement } from "../../../store/actions/departements";
 
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
@@ -20,23 +20,23 @@ const notyf = new Notyf();
 const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , className , depart }) => {
    
   const [name, setModuleName] = useState("")
-  const [description, setModuleDescription] = useState("")
-  const [formation_id, setFormationId] = useState(0)
-  const formations = useSelector(state => state.formations)
+  const [email, setEmail] = useState("")
+  const [departement_id, setDepartementId] = useState(0)
+  const departements = useSelector(state => state.departements)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchFormations())
+    dispatch(fetchDepartement())
     if(Object.keys(depart).length !== 0){
       setModuleName(depart.name)
-      setFormationId(depart.formation_id)
-      setModuleDescription(depart.description)
+      setEmail(depart.email)
+      setDepartementId(depart.departement_id)
     }
   }, [depart])
 
   const saveModule = () => {
-      dispatch(UpdateModule({data:{id:depart.id,name,description,formation_id}}))
+      dispatch(UpdateModule({data:{id:depart.id,name,email,departement_id}}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchModules({
@@ -79,27 +79,25 @@ const EditModule = ({ setMessage , toggleEditModal , open  , currentPage , class
         <ListGroup>
             <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>Module Name :</strong> </Label>
+                <Label for="name"><strong>Teacher Name :</strong> </Label>
                 <Input value={name} onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
               </FormGroup>
              </ListGroupItem>
-         
              <ListGroupItem>
               <FormGroup>
-                <Label for="exampleSelect">Select Formation</Label>
-                <Input value={formation_id} onChange={(e)=> setFormationId(e.target.value) } type="select" name="module_id" id="exampleSelect">
-                  <option value={""} key='erd'></option>
-                  {
-                  formations ? formations.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
-                  }
-                </Input>
+                <Label for="email"><strong>teacher Email :</strong> </Label>
+                <Input value={email} onChange={(e)=>  setEmail(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Departement Name" />
               </FormGroup>
              </ListGroupItem>
-
              <ListGroupItem>
-             <FormGroup>
-                <Label for="Description">Description</Label>
-                <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
+              <FormGroup>
+                <Label for="exampleSelect">Select Departement</Label>
+                <Input value={departement_id} onChange={(e)=> setDepartementId(e.target.value) } type="select" name="departement_id" id="exampleSelect">
+                  <option value={""} key='erd'></option>
+                  {
+                   departements ? departements.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
+                  }
+                </Input>
               </FormGroup>
              </ListGroupItem>
           </ListGroup>

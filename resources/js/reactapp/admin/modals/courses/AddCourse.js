@@ -23,6 +23,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
   const [prerequisite, setPreReq] = useState("")
   const [difficulty_level, setDifficultyLevel] = useState("")
   const [module_id, setModuleId] = useState(0)
+  const [file, setFile] = useState(null)
   const dispatch = useDispatch()
   const modules = useSelector(state => state.modules)
 
@@ -30,8 +31,29 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
    dispatch(fetchModules())
   },[])
 
+
+  const onChange = e => {
+    const files = Array.from(e.target.files)
+    if(files.length > 0){
+      setFile(files[0])
+    }
+  
+  }
+
+
   const save = () => {
-      dispatch(CreateCourse({data:{name,description,prerequisite,difficulty_level,module_id,document_path:"file.pdf"}}))
+   if(!file){
+      notyf.error("Please Select a file")
+   }else{
+    const formdata = new FormData()
+    formdata.append("name", name);
+    formdata.append("file", file);
+    formdata.append("description", description);
+    formdata.append("prerequisite", prerequisite);
+    formdata.append("difficulty_level", difficulty_level);
+    formdata.append("module_id", module_id);
+    
+      dispatch(CreateCourse({data:formdata}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
         dispatch(fetchCourses({
@@ -45,6 +67,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
       .catch(()=> {
         notyf.error('Error while Adding');
       })
+   }
   }
 
   return (
@@ -96,7 +119,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleSelect">Select Module</Label>
-                <Input defaultValue="" onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="module_id">
+                <Input placeholder="Select a module" defaultValue="" onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="module_id">
                   <option value={""} key='erd'></option>
                   {
                   modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
@@ -115,7 +138,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
              <ListGroupItem>
               <FormGroup>
                 <Label for="exampleFile">File</Label>
-                <Input type="file" name="file" id="exampleFile" />
+                <Input onChange={onChange}  type="file" name="file" id="exampleFile" />
                 <FormText color="muted">
                   Course File
                 </FormText>

@@ -1,12 +1,11 @@
 import React , { useEffect , useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFormations , DeleteFormation } from "../../../store/actions/formations";
+import { fetchMessages , DeleteMessage  } from "../../../store/actions/messages";
 
 // reactstrap components
 import {
   Card,
   CardHeader,
-  CardFooter,
   Table,
   Button,
   Container,
@@ -14,66 +13,36 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import AddFormation from "../../modals/formations/AddFormation";
-import EditFormation from "../../modals/formations/EditFormation";
-import Paginations from "../../partials/pagination";
-import Confirm from "../../modals/Confirm";
+import AddMessage from "../../modals/messages/AddMessage";
+import ShowRoom from "../../modals/messages/ShowRoom";
+
 // core components
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
 
-const Formations = () => {
+const Messages = () => {
  
     const [addModal, setToggleAddModal] = useState(false)
     const [editModal, setToggleEditModal] = useState(false)
-    const [confirm, setConfirmModal] = useState(false)
-    const [id, setId] = useState(null)
-    const [currentPage , setCurrentPage] = useState(1)
-    const [message, setMessage] = useState("Are you Sure ?!")
     const [depart, setDeprt] = useState({})
-    const formations = useSelector(state => state.formations)
+    const annonces = useSelector(state => state.annonces)
     const dispatch = useDispatch()
 
-    const totalDepart = 11
     useEffect(() => {
-      dispatch(fetchFormations())
+      dispatch(fetchMessages())
     }, [dispatch]);
 
-
     const deleteAction = (id) => {
-      const offset = (currentPage - 1) * 10;
-      setMessage("Deleting ...")
-      dispatch(DeleteFormation({id})).then(()=>{
-        setMessage("Deleted")
-        notyf.success('Your record have been successfully deleted!');
-        dispatch(fetchFormations({
-          pagination: { page : offset , perPage: offset + 10 },
-          sort: { field: 'name' , order: 'ASC' },
-          filter: {},
-        })).then(()=>{
-          setConfirmModal(false)
-          setMessage("Are you Sure ?!")
+      dispatch(DeleteMessage({id})).then(()=>{
+        dispatch(fetchMessages()).then(()=>{
         })
       }).catch(()=>{
         notyf.error('Error while Deleting');
-        setMessage("Error While Deleting!")
       })
     }
-  
-    const onPageChanged = (page , totalPages)=>{
-      const currentPage = Math.max(0, Math.min(page, totalPages));
-  
-      const offset = (currentPage - 1) * 10;
-      dispatch(fetchFormations({
-        pagination: { page : offset , perPage: 10 },
-        sort: { field: 'name' , order: 'ASC' },
-        filter: {},
-      }))
-      setCurrentPage(currentPage)
-    }
 
-    const renderFormations = () => {
-      if(formations === null){
+    const render = () => {
+      if(annonces === null){
         return (
           <tr className="mb-0">
             <td className="text-center">
@@ -81,14 +50,14 @@ const Formations = () => {
             </td>    
           </tr>
          ) 
-      }else if(formations.length === 0){
+      }else if(annonces.length === 0){
            <tr className="mb-0"> 
             <td className="">
               No data Available
             </td>    
           </tr>
       }else{
-        return formations.map((dep) => {
+        return annonces.map((dep) => {
           return (
             <tr  key={dep.id}>
                <th className="align-middle" scope="row">
@@ -108,7 +77,7 @@ const Formations = () => {
                   }}
                   >
                   <i className="fas fa-edit mr-2"></i>
-                  edit
+                  Show Messages
                   </Button>
                 </div>
                 <div className="ml-2">
@@ -116,8 +85,7 @@ const Formations = () => {
                   type="button"
                   color="danger"
                   onClick={() =>  {
-                    setId(dep.id)
-                    setConfirmModal(c => !c )
+                    deleteAction(dep.id)
                   }}
                   >
                   <i className="fas fa-trash-alt mr-2"></i>
@@ -125,7 +93,7 @@ const Formations = () => {
                   </Button>
                 </div>
               </div>
-            </td>
+             </td>
             </tr>
           );
         });
@@ -135,9 +103,8 @@ const Formations = () => {
     return (
       <>
         {/* Page content */}
-        {addModal &&  <AddFormation open={addModal} toggleAddModal={setToggleAddModal}/>}
-        {editModal &&  <EditFormation depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
-        {confirm &&  <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />}
+        {addModal &&  <AddMessage open={addModal} toggleAddModal={setToggleAddModal}/>}
+        {editModal &&  <ShowRoom depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
         <Container  className="mt--7" fluid>
           {/* Table */}
           <Row>
@@ -149,7 +116,7 @@ const Formations = () => {
                   setToggleAddModal(true) 
                 }}>
                   <i className="mr-2 fas fa-plus"></i>
-                 Add Formation
+                 Compose
               </Button>
             </div>
           </Row>
@@ -169,12 +136,9 @@ const Formations = () => {
                     </tr>
                   </thead>
                   <tbody>
-                     {renderFormations()}
+                     {render()}
                   </tbody>
                 </Table>
-                <CardFooter className="py-4">
-                  <Paginations currentPage={currentPage} pageLimit={10} pageNeighbours={1} onPageChanged={onPageChanged} totalRecords={totalDepart} />
-                </CardFooter>
               </Card>
             </div>
           </Row>
@@ -185,4 +149,4 @@ const Formations = () => {
 }
 
 
-export default Formations
+export default Messages

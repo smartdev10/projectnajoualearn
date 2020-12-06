@@ -39,9 +39,7 @@ class TeachersController extends Controller
 
    // fUNCTION UPDATE 
    public function edit(Request $request , $id){
-      $departement = Formateur::find($id);
-      $departement->name = $request->name;
-      $departement->save();
+      Formateur::where('id', $id)->update($request->all());
       return response()->json(['message'=>'saved']);
 
    }

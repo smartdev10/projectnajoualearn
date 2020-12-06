@@ -23,33 +23,33 @@ export default function _sidenav() {
             </div>
             <ul className="nav flex-column">
                <li className="nav-item">
-                <Link to="/teacher/home" className="nav-link">
+                <Link to="/app/teacher/home" className="nav-link">
                     <span className="sidebar-icon"><i className="fas fa-home"></i></span>
                     <span>Home</span>
                 </Link>
                 </li>
                 <li className="nav-item">
-                <Link to="/teacher/courses" className="nav-link">
+                <Link to="/app/teacher/courses" className="nav-link">
                     <span className="sidebar-icon"><span className="fas fa-book"></span></span>
                     <span>Cours</span>
                 </Link>
                 </li>
                 <li className="nav-item">
-                <Link to="/teacher/annonces" className="nav-link">
+                <Link to="/app/teacher/formations" className="nav-link">
+                    <span className="sidebar-icon"><span className="fas fa-graduation-cap"></span></span>
+                    <span>Formations</span>
+                </Link>
+                </li>
+                <li className="nav-item">
+                <Link to="/app/teacher/annonces" className="nav-link">
                     <span className="sidebar-icon"><i className="fas fa-bullhorn"></i></span>
                     <span>Annonces</span>
                 </Link>
                 </li>
                 <li className="nav-item">
-                <Link to="/teacher/messages" className="nav-link">
-                    <span className="sidebar-icon"><i className="fas fa-bullhorn"></i></span>
-                    <span>Messages</span>
-                </Link>
-                </li>
-                <li className="nav-item">
-                <Link to="/teacher/tickets" className="nav-link">
-                    <span className="sidebar-icon"><i className="fas fa-bullhorn"></i></span>
-                    <span>Tickets</span>
+                <Link to="/app/teacher/messages" className="nav-link">
+                    <span className="sidebar-icon"><i className="fas fa-inbox"></i></span>
+                    <span> Messages</span>
                 </Link>
                 </li>
             </ul>

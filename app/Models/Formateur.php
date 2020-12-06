@@ -10,7 +10,7 @@ class Formateur extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $guard = 'teacher';
+    protected $guard = 'formateur';
 
     protected $fillable = [
         'name',

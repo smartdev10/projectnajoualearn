@@ -8,32 +8,50 @@ import {
   ListGroup,
   ListGroupItem,
   Label,
+  FormText 
 } from "reactstrap";
 
 import { useDispatch , useSelector } from "react-redux";
-import { CreateCourse , fetchCourses } from "../../../store/actions/courses";
-import { fetchModules  } from "../../../store/actions/modules";
+import { CreateAnnonces , fetchAnnonces } from "../../../store/actions/annonces";
+import { fetchFormations  } from "../../../store/actions/formations";
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
-const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
+const AddAnnonce= ({  toggleAddModal , open  , currentPage , className }) => {
    
-  const [name, setModuleName] = useState("")
+  const [name, setName] = useState("")
   const [description, setModuleDescription] = useState("")
-  const [prerequisite, setPreReq] = useState("")
-  const [difficulty_level, setDifficultyLevel] = useState("")
-  const [module_id, setModuleId] = useState(0)
+  const [file, setFile] = useState(null)
+  const [formation_id, setFormationId] = useState(0)
   const dispatch = useDispatch()
-  const modules = useSelector(state => state.modules)
+  const formations = useSelector(state => state.formations)
 
   useEffect(()=>{
-   dispatch(fetchModules())
+   dispatch(fetchFormations())
   },[])
 
+  
+  const onChange = e => {
+    const files = Array.from(e.target.files)
+    if(files.length > 0){
+      setFile(files[0])
+    }
+  
+  }
+
+
   const save = () => {
-      dispatch(CreateCourse({data:{name,description,prerequisite,difficulty_level,module_id,document_path:"file.pdf"}}))
+    if(!file){
+      notyf.error("Please Select a file")
+   }else{
+    const formdata = new FormData()
+    formdata.append("name", name);
+    formdata.append("file", file);
+    formdata.append("description", description);
+    formdata.append("formation_id", formation_id);
+      dispatch(CreateAnnonces({data:formdata}))
       .then(() => {
         const offset = (currentPage - 1) * 10;
-        dispatch(fetchCourses({
+        dispatch(fetchAnnonces({
           pagination: { page : offset , perPage: offset + 10 },
           sort: { field: 'name' , order: 'ASC' },
           filter: {},
@@ -44,6 +62,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
       .catch(()=> {
         notyf.error('Error while Adding');
       })
+    }
   }
 
   return (
@@ -56,7 +75,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
 
         <div className="modal-header">
           <h4 className="modal-title" id="modal-title-default">
-            Add Course
+            Add Annonce
           </h4>
           <button
             aria-label="Close"
@@ -72,41 +91,37 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
         <ListGroup>
             <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>Module Name :</strong> </Label>
-                <Input onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+                <Label for="name"><strong>Annonce title :</strong> </Label>
+                <Input onChange={(e)=>  setName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Annonce Title" />
               </FormGroup>
              </ListGroupItem>
 
              <ListGroupItem>
               <FormGroup>
-                <Label for="name"><strong>PreRequisites :</strong> </Label>
-                <Input onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="name" id="prereq" placeholder="Enter Module Pre Requisites" />
-              </FormGroup>
-             </ListGroupItem>
-
-
-             <ListGroupItem>
-              <FormGroup>
-                <Label for="name"><strong>Difficulty Level :</strong> </Label>
-                <Input onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="diffculty_level" id="diffculty_level" placeholder="Enter Module Difficulty Level" />
-              </FormGroup>
-             </ListGroupItem>
-
-             <ListGroupItem>
-              <FormGroup>
-                <Label for="exampleSelect">Select Module</Label>
-                <Input defaultValue="" onChange={(e)=> setModuleId(e.target.value) } type="select" name="module_id" id="exampleSelect">
+                <Label for="exampleSelect">Select Formation</Label>
+                <Input placeholder="Select a formation" defaultValue="" onChange={(e)=> setFormationId(e.target.value) } type="select" name="formation_id" id="formation_id">
+                  <option value={""} key='erd'></option>
                   {
-                  modules ? modules.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
+                  formations ? formations.map((mod,i) => <option value={mod.id} key={i}>{mod.name}</option>) :  <option value={"loading..."} key='er'></option>
                   }
                 </Input>
               </FormGroup>
              </ListGroupItem>
              
-             <ListGroupItem>
-             <FormGroup>
+              <ListGroupItem>
+              <FormGroup>
                 <Label for="Description">Description</Label>
                 <Input onChange={(e)=>  setModuleDescription(e.target.value) } type="textarea" name="text" id="description" placeholder="Enter Module description" />
+              </FormGroup>
+             </ListGroupItem>
+
+             <ListGroupItem>
+              <FormGroup>
+                <Label for="exampleFile">Attached_doc </Label>
+                <Input onChange={onChange} type="file" name="attached_doc" id="exampleFile" />
+                <FormText color="muted">
+                 Attached Doc
+                </FormText>
               </FormGroup>
              </ListGroupItem>
           </ListGroup>
@@ -123,4 +138,4 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
 }
 
 
-export default AddCourse
+export default AddAnnonce
