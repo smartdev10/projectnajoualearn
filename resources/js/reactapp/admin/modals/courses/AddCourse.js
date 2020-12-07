@@ -97,14 +97,14 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
             <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>Module Name :</strong> </Label>
-                <Input onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Module Name" />
+                <Input onChange={(e)=>  setModuleName(e.target.value) }  type="text" name="name" id="name" placeholder="Enter Course Name" />
               </FormGroup>
              </ListGroupItem>
 
              <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>PreRequisites :</strong> </Label>
-                <Input onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="name" id="prereq" placeholder="Enter Module Pre Requisites" />
+                <Input onChange={(e)=>  setPreReq(e.target.value) }  type="text" name="name" id="prereq" placeholder="Enter Course Pre Requisites" />
               </FormGroup>
              </ListGroupItem>
 
@@ -112,7 +112,7 @@ const AddCourse = ({  toggleAddModal , open  , currentPage , className }) => {
              <ListGroupItem>
               <FormGroup>
                 <Label for="name"><strong>Difficulty Level :</strong> </Label>
-                <Input onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="diffculty_level" id="diffculty_level" placeholder="Enter Module Difficulty Level" />
+                <Input onChange={(e)=>  setDifficultyLevel(e.target.value) }  type="text" name="diffculty_level" id="diffculty_level" placeholder="Enter Course Difficulty Level" />
               </FormGroup>
              </ListGroupItem>
 

@@ -40,12 +40,12 @@ export default function _sidenav() {
                     <span>Annonces</span>
                 </Link>
                 </li> */}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                 <Link to="/app/student/messages" className="nav-link">
                     <span className="sidebar-icon"><i className="fas fa-inbox"></i></span>
                     <span> Messages</span>
                 </Link>
-                </li>
+                </li> */}
             </ul>
             </div>
         </nav>

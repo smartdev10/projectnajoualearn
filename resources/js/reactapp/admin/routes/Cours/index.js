@@ -114,6 +114,18 @@ const Courses = () => {
                 <div className="ml-2">
                   <Button
                   type="button"
+                  color="primary"
+                  onClick={() =>  {
+                   window.open(`/api/courses/download/${dep.id}`, '_blank')
+                  }}
+                  >
+                  <i className="fas fa-cloud-download-alt mr-2"></i>
+                  Download
+                  </Button>
+                </div>
+                <div className="ml-2">
+                  <Button
+                  type="button"
                   color="danger"
                   onClick={() =>  {
                     setId(dep.id)

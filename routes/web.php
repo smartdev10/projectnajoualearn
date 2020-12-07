@@ -116,6 +116,7 @@ Route::prefix('api/courses')->group(function () {
     Route::post('create', [App\Http\Controllers\CoursesController::class, 'create']);
     Route::put('update/{id}', [App\Http\Controllers\CoursesController::class, 'edit']);
     Route::delete('delete/{id}', [App\Http\Controllers\CoursesController::class, 'destroy']);
+    Route::get('download/{id}', [App\Http\Controllers\CoursesController::class, 'download']);
 });
 
 // Annonces
@@ -133,7 +134,7 @@ Route::prefix('api/students')->group(function () {
     Route::get('', [App\Http\Controllers\StudentsController::class, 'users']);
     Route::get('show/{id}', [App\Http\Controllers\StudentsController::class, 'show']);
     Route::post('create', [App\Http\Controllers\StudentsController::class, 'create']);
-    Route::put('update/{id}', [App\Http\Controllers\StudentsController::class, 'edit']);
+    Route::put('{id}', [App\Http\Controllers\StudentsController::class, 'edit']);
     Route::delete('delete/{id}', [App\Http\Controllers\StudentsController::class, 'destroy']);
 });
 

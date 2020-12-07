@@ -17,14 +17,14 @@ export const CreateStudent = (params) => {
 
 export const UpdateStudent = (params) => {
   return () => {
-    return dataProvider("UPDATE", "students/create", params)
+    return dataProvider("UPDATE", "students", params)
   };
 };
 
 
 export const DeleteStudent = (params) => {
   return () => {
-    return dataProvider("DELETE_MANY", "students/delete", params)
+    return dataProvider("DELETE", "students/delete", params)
   };
 };
 

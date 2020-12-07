@@ -140,10 +140,6 @@ function _topbar() {
                   </div>
                 </a>
                 <div className="dropdown-menu dashboard-dropdown dropdown-menu-right mt-2">
-                  <a className="dropdown-item font-weight-bold" href="#"><span className="fas fa-user-circle"></span>My Profile</a>
-                  <a className="dropdown-item font-weight-bold" href="#"><span className="fas fa-cog"></span>Settings</a>
-                  <a className="dropdown-item font-weight-bold" href="#"><span className="fas fa-envelope-open-text"></span>Messages</a>
-                  <a className="dropdown-item font-weight-bold" href="#"><span className="fas fa-user-shield"></span>Support</a>
                   <div role="separator" className="dropdown-divider"></div>
                   <a className="dropdown-item font-weight-bold" onClick={(e)=> onLogout(e)}><span className="fas fa-sign-out-alt text-danger"></span>Logout</a>
                 </div>

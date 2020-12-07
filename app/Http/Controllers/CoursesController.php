@@ -45,6 +45,12 @@ class CoursesController extends Controller
           return $course;
     }
 
+    public function download($id){
+      // find with Id AND return ID
+        $course = Cours::find($id);
+        return Storage::download($course->document_path);
+     }
+
     // fUNCTION UPDATE 
     public function edit(Request $request , $id){
        $course = Cours::find($id);
@@ -53,7 +59,6 @@ class CoursesController extends Controller
        $course->description = $request->description;
        $course->prerequisite = $request->prerequisite;
        $course->difficulty_level = $request->difficulty_level;
-       $course->document_path = $request->document_path;
        $course->save();
        return response()->json(['message'=>'saved']);
 

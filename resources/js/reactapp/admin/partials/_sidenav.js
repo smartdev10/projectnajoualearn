@@ -69,8 +69,6 @@ export default function _sidenav() {
                 <div className="multi-level collapse show" role="list" id="submenu-app" aria-expanded="false">
                     <ul className="flex-column nav">
                         <li className="nav-item"><Link className="nav-link" to="/admin/teachers"><span><i className="fas fa-list"></i> List</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/messages"><span><i className="fas fa-inbox"></i> Messages</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/teachers/tickets"><span><i className="fas fa-ticket-alt"></i> Tickets</span></Link></li>
                     </ul>
                 </div>
                 </li>
@@ -85,8 +83,6 @@ export default function _sidenav() {
                 <div className="multi-level collapse show" role="list" id="submenu-pages" aria-expanded="false">
                     <ul className="flex-column nav">
                         <li className="nav-item"><Link className="nav-link" to="/admin/students"><span><i className="fas fa-list"></i> List</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/students/messages"><span> <i className="fas fa-inbox"></i> Messages</span></Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/admin/students/tickets"><span><i className="fas fa-ticket-alt"></i> Tickets</span></Link></li>
                     </ul>
                 </div>
                 </li>
