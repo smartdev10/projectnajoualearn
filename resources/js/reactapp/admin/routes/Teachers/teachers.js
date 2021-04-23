@@ -10,7 +10,6 @@ import {
   CardFooter,
   Table,
   Button,
-  Container,
   Row
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -165,7 +164,6 @@ const Teachers = () => {
         {addModal &&  <AddTeacher open={addModal} toggleAddModal={setToggleAddModal}/>}
         {editModal &&  <EditTeacher depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
         {confirm &&  <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />}
-        <Container  className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="col">
@@ -194,7 +192,6 @@ const Teachers = () => {
             </div>
           </Row>
           {/* Dark table */}
-        </Container>
       </>
     );
 }

@@ -11,9 +11,8 @@ const MainApp = ({location , match}) => {
   return (
    <>
    <Nav />
-    <div className="container-fluid bg-soft">
-    <div className="row">
-     <div className="col-12">
+    {/* <div className="container-fluid bg-soft"> */}
+      <div className="col-12">
         <SideNav />
         <main className="content">
           <TopBar />
@@ -21,8 +20,7 @@ const MainApp = ({location , match}) => {
           <Footer/>
         </main>
       </div>
-     </div>
-    </div>
+    {/* </div> */}
    </>
   )
 };

@@ -9,7 +9,6 @@ import {
   CardFooter,
   Table,
   Button,
-  Container,
   Row
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -45,7 +44,6 @@ const Formations = () => {
       const offset = (currentPage - 1) * 10;
       Swal.fire({
         title: 'Do you want to delete this?',
-        showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: `Delete`,
       }).then((result) => {
@@ -144,7 +142,6 @@ const Formations = () => {
         {addModal &&  <AddFormation open={addModal} toggleAddModal={setToggleAddModal}/>}
         {editModal &&  <EditFormation depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
         {confirm &&  <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />}
-        <Container  className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="mr-3">
@@ -185,7 +182,6 @@ const Formations = () => {
             </div>
           </Row>
           {/* Dark table */}
-        </Container>
       </>
     );
 }

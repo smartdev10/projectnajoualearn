@@ -11,7 +11,7 @@
 	max-height: 100%;
 	overflow-y: auto;
 	width: 100%;
-	@include transition(max-width .3s);
+	@include transition(max-width .1s);
 	
 	@include media-breakpoint-up(md) {
 		width: 100%;
@@ -31,7 +31,7 @@
 		}
 		.nav-link {
 			color: $light;
-
+			cursor: pointer;
 			&:hover {
 				color: $light;
 				background-color: #2e3650;
@@ -62,13 +62,13 @@
 			font-size: $font-size-sm;
 		}
 
-		&[data-toggle=collapse][aria-expanded=true] .link-arrow{
+		&[data-bs-toggle=collapse][aria-expanded=true] .link-arrow{
 			@include transform(rotate(90deg));
 			transition: $transition-base;
 		}
 	}
 	.nav-link.active {
-		color: $primary;
+		color: #363c54;
 	}
 
 	.multi-level{
@@ -82,12 +82,10 @@
 	.badge,
 	.notification-count {
 		opacity: 1;
-		@include transition(opacity .3s);
 	}
 
 	.sidebar-text-contracted {
 		display: none;
-		@include transition(opacity .3s);
 	}
 
 	&.contracted {
@@ -113,7 +111,8 @@
 			position: relative;
 			&.active {
 				& > .nav-link {
-					background-color: $primary;
+					background-color: #363c54;
+					width: 44px;
 				}
 			}
 			.nav-link {

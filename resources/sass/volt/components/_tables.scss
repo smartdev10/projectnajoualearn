@@ -194,11 +194,11 @@
 }
 
 .dataTable-top {
-    padding: 0 1.5rem 1rem 1.5rem;
+    padding: 0 1rem 1rem 1rem;
 }
 
 .dataTable-bottom {
-    padding: 1.5rem 1.5rem 0 1.5rem;
+    padding: 1.5rem 1rem 0 1rem;
 }
 
 .dataTable-pagination {
@@ -214,13 +214,13 @@
     @if $pagination-margin-left == (-$pagination-border-width) {
         &:first-child {
         a {
-            @include border-left-radius($pagination-border-radius);
+            @include border-start-radius($pagination-border-radius);
         }
         }
 
         &:last-child {
         a {
-            @include border-right-radius($pagination-border-radius);
+            @include border-end-radius($pagination-border-radius);
         }
         }
     } @else {

@@ -66,21 +66,6 @@
 		width: 30px;
 	}
 
-	.organic-shape{
-		margin-left:.5rem;
-	}
-
-	&.rounded-circle{
-		.icon-bordered{
-			border-radius:$circle-radius;
-		}
-	}
-
-	&.organic-radius{
-		.icon-bordered{
-			border-radius:$organic-radius;
-		}
-	}
 }
 
 // Icons included in shapes
@@ -121,22 +106,6 @@
 	}
 }
 
-//Icon Parallax
-.image-shape {
-    width: $icon-shape-img;
-	height: $icon-shape-img;
-	position: relative;
-	@include icon-image-background(center, cover, no-repeat); 
-    span {
-        font-size: $icon-size;
-		z-index: 1;
-	}
-	&.icon-parallax{
-		@include icon-parallax-background(center, cover, fixed, no-repeat); 
-		overflow: hidden;
-		background-repeat: no-repeat;
-	}
-}
 
 .list-icon{
 	width: 45px;
@@ -162,6 +131,23 @@
 .shape-xs {
     width: 10px;
     height: 10px;
+}
+
+//Index Big Icon
+.bootstrap-big-icon {
+	position: absolute;
+	opacity: .05;
+	transform: rotate(17deg);
+	@include media-breakpoint-up(lg) {
+		right: -20%;
+		bottom: 6%;
+	}
+
+	@include media-breakpoint-up(xl) {
+		right: -10%;
+		bottom: 6%;
+	}
+
 }
 
 //Calendar Icon
@@ -202,7 +188,7 @@
 
 .github-big-icon{
 	position: absolute;
-    right: -35px;
+    right: 80px;
     top: 165px;
 	span{
 		font-size: 800px;

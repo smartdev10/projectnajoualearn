@@ -7,14 +7,16 @@ import Modules from "./Modules/index";
 import Courses from "./Cours/index";
 import Annonces from "./Annonces/index";
 import Teachers from "./Teachers/index";
-
+import {
+    Container,
+  } from "reactstrap";
 const App = ({match}) => {
 
     const location = useLocation()
     console.log(match.url)
     return (
         <div>
-         <div className="py-4">
+         <div>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li className="breadcrumb-item"><a href="#"><span className="fas fa-home"></span></a></li>
@@ -28,6 +30,7 @@ const App = ({match}) => {
                 </div>
             </div>
         </div>
+        <Container  className="p-0" fluid>
         <Switch>
             <Route path={`${match.url}/departements`} component={Departements}/>
             <Route path={`${match.url}/formations`} component={Formations}/>
@@ -38,6 +41,7 @@ const App = ({match}) => {
             <Route path={`${match.url}/teachers`} component={Teachers}/>
             <Redirect to={`${match.url}/departements`} />
         </Switch>
+        </Container>
     </div>
     )
 };

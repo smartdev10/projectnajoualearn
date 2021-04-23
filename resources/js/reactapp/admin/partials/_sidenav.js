@@ -59,7 +59,7 @@ export default function _sidenav() {
                 </Link>
                 </li>
                 <li className="nav-item">
-                <span className="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-app">
+                <span className="nav-link d-flex justify-content-between align-items-center"  data-bs-toggle="collapse" data-bs-target="#submenu-app">
                     <span>
                         <span className="sidebar-icon"><i className="fas fa-chalkboard-teacher"></i></span> 
                          Formateurs
@@ -73,7 +73,7 @@ export default function _sidenav() {
                 </div>
                 </li>
                 <li className="nav-item">
-                <span className="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-pages">
+                <span className="nav-link d-flex justify-content-between align-items-center"  data-bs-toggle="collapse" data-bs-target="#submenu-pages">
                     <span>
                         <span className="sidebar-icon"><span className="fas fa-users"></span></span> 
                          Etudiants

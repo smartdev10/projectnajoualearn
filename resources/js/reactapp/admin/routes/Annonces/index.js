@@ -9,7 +9,6 @@ import {
   CardFooter,
   Table,
   Button,
-  Container,
   Row
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -138,7 +137,6 @@ const Annonces = () => {
         {addModal &&  <AddAnnonce open={addModal} toggleAddModal={setToggleAddModal}/>}
         {editModal &&  <EditAnnonce depart={depart} open={editModal} toggleEditModal={setToggleEditModal}/>}
         {confirm &&  <Confirm message={message} id={id} confirm={confirm} confirmAction={deleteAction} toggleConfirmModal={setConfirmModal} />}
-        <Container  className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="mr-3">
@@ -179,7 +177,6 @@ const Annonces = () => {
             </div>
           </Row>
           {/* Dark table */}
-        </Container>
       </>
     );
 }
